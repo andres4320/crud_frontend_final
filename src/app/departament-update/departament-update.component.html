@@ -1,0 +1,21 @@
+<div class="card table-responsive m-4">
+    <div class="card-header text-center">Actualizar Departamento</div>
+    <div *ngIf="true" class="card-body">
+        <form class="row">
+            <div class="mb-3">
+                <label for="inputCountry">Pais</label>
+                <select [(ngModel)]="country_id" [ngModelOptions]="{standalone: true}" id="inputCountry"
+                    class="form-control">
+                    <option selected>Elegi un País...</option>
+                    <option [value]="country.id" *ngFor="let country of countryData">{{country.name}}</option>
+                </select>
+                <label for="formDepartament-Update" class="mb-1">Nombre del Departamento</label>
+                <input [(ngModel)]="name" type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                    id="formDepartament-Update">
+            </div>
+            <div>
+                <button (click)="updateDepartament()" type="button" class="btn btn-success btn-lg">Actualizar Departamento</button>
+            </div>
+        </form>
+    </div>
+</div>

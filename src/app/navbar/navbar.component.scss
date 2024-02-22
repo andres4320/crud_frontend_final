@@ -1,0 +1,29 @@
+/* navbar.component.scss */
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+.navbar-nav {
+    display: flex;
+}
+
+.nav-item {
+    margin-right: 15px;
+}
+
+.nav-link {
+    color: #333;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-link:hover {
+    color: #007bff;
+    /* Cambia el color al pasar el ratón por encima */
+}

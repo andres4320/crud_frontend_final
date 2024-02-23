@@ -13,7 +13,8 @@
         <form class="form-group">
             <div class="form-group col-md-4">
                 <label for="inputCountry">Pais</label>
-                <select [(ngModel)]="country_id" [ngModelOptions]="{standalone: true}" id="inputCountry" class="form-control">
+                <select [(ngModel)]="country_id" [ngModelOptions]="{standalone: true}" id="inputCountry"
+                    class="form-control">
                     <option selected disabled>Choose a País...</option>
                     <option [value]="country.id" *ngFor="let country of countryData">{{country.name}}</option>
                 </select>
@@ -24,7 +25,7 @@
                     id="inputDepartament">
             </div>
             <div class="form-group col-md-6">
-                <button type="button" (click)="onButtonClick()" class="btn btn-primary btn-sm">{{labelMain}}
+                <button type="button" (click)="onButtonClick()" class="btn btn-primary btn-lg">{{labelMain}}
                     Departamento</button>
             </div>
         </form>
@@ -48,14 +49,10 @@
                 <td>{{departament?.country?.name}}</td>
                 <td>{{departament.name}}</td>
                 <td>
-                    <div class="form-group col-md-6">
-                        <button type="button" (click)="update(departament)" class="btn btn-success btn-sm">Actualizar</button>
-                    </div>
+                    <button type="button" (click)="update(departament)" class="btn btn-success btn-sm">Actualizar</button>
                 </td>
                 <td>
-                    <div class="form-group col-md-6">
-                        <button (click)="deleteDepartament(departament.id)" type="button" class="btn btn-danger btn-sm">Eliminar</button>
-                    </div>
+                    <button (click)="deleteDepartament(departament.id)" type="button" class="btn btn-danger btn-sm">Eliminar</button>
                 </td>
             </tr>
         </tbody>

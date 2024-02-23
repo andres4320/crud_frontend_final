@@ -4,9 +4,8 @@ import { Country } from '../models/country.model';
 import { Departament } from '../models/departament.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
-
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-departament',
@@ -27,19 +26,21 @@ export class DepartamentComponent implements OnInit {
   public labelMain: string = 'Agregar';
 
 
-  constructor(private service: ApiService, private router: Router) { }
-
+  constructor(private service: ApiService,  private route: ActivatedRoute) { }
+  // private router: Router,
 
   ngOnInit() {
     this.getDepartament();
     this.getCountry();
-
   }
 
   async getDepartament() {
-    this.departamentData = await this.service.getDepartament('departaments');
-    console.log('Departament data:', this.departamentData);
-
+    const countryId = this.route.snapshot.queryParams['countryId'];
+    if (countryId) {
+      this.departamentData = await this.service.getDepartamentByCountry('departaments', countryId);
+    } else {
+      this.departamentData = await this.service.getDepartament('departaments');
+    }
   }
 
   async getCountry() {
@@ -55,7 +56,6 @@ export class DepartamentComponent implements OnInit {
   }
 
   async createDepartament() {
-    console.log('entra');
     const newDepartament = { name: this.name, country_id: this.country_id };
 
     this.service.createDepartament('departaments/create', newDepartament).then((res) => {
@@ -92,14 +92,14 @@ export class DepartamentComponent implements OnInit {
     this.country_id = departament.country.id;
   }
 
-  async getDepartamentDetails() {
-    const departamentoActual = this.departamentData.find(dep => dep.id === this.departament_id);
-    console.log(departamentoActual);
-    if (departamentoActual) {
-      this.name = departamentoActual.name;
-      this.country_id = departamentoActual.country_id;
-    }
-  }
+  // async getDepartamentDetails() {
+  //   const departamentoActual = this.departamentData.find(dep => dep.id === this.departament_id);
+  //   console.log(departamentoActual);
+  //   if (departamentoActual) {
+  //     this.name = departamentoActual.name;
+  //     this.country_id = departamentoActual.country_id;
+  //   }
+  // }
 
   async deleteDepartament(id: any) {
     await this.service.deleteDepartament(id)

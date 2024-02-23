@@ -1,4 +1,4 @@
-import { Departament } from '../models/departament.model';
+import { Departament } from './departament.model';
 
 export interface Municipality{
     id?: number;

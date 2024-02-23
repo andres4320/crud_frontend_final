@@ -4,7 +4,6 @@ export class ServiceObject {
       this.status = false;
       this.message = ''; 
     }
-  
     status: boolean;
     message: string;
 }

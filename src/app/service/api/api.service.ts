@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ServiceObject } from '../../models/serviceObject';
 import { Country } from '../../models/country.model';
 import { Departament } from '../../models/departament.model';
+import { Municipality } from '../../models/municipality.model';
 import { enviroment } from '../../../enviroments/enviroment';
 
 
@@ -22,6 +23,7 @@ export class ApiService {
       return <Country[]>service.data;
     })
   }
+  
   createCountry(entity: String, country: Country): Promise<ServiceObject> {
     return this.httpClient.post(`${this.endpoint}${entity}`, country).toPromise().then((res) => {
       return <ServiceObject>res;
@@ -48,12 +50,14 @@ export class ApiService {
     })
   }
 
-  getDepartamentById(entity: String, id: number): Promise<Departament[]> {
-    return this.httpClient.get(`${this.endpoint}${entity}/${id}`).toPromise().then((res) => {
+  getDepartamentByCountry(entity: string, countryId: number): Promise<Departament[]> {
+    return this.httpClient.get(`${this.endpoint}${entity}?countryId=${countryId}`).toPromise().then((res) => {
+      console.log('API response:', res);
       var service = <ServiceObject>res
       return <Departament[]>service.data;
-    })
+    });
   }
+  
 
   createDepartament(entity: String, departament: Departament): Promise<ServiceObject> {
     return this.httpClient.post(`${this.endpoint}${entity}`, departament).toPromise().then((res) => {
@@ -69,6 +73,41 @@ export class ApiService {
 
   deleteDepartament(id: number): Promise<ServiceObject> {
     return this.httpClient.delete(`${this.endpoint}departaments/destroy/${id}`).toPromise().then((res) => {
+      return <ServiceObject>res;
+    })
+  }
+
+  // Functions of Municpalities
+  getMunicipality(entity: String): Promise<Municipality[]> {
+    return this.httpClient.get(`${this.endpoint}${entity}`).toPromise().then((res) => {
+      var service = <ServiceObject>res
+      return <Municipality[]>service.data;
+    })
+  }
+
+  // getDepartamentByCountry(entity: string, countryId: number): Promise<Departament[]> {
+  //   return this.httpClient.get(`${this.endpoint}${entity}?countryId=${countryId}`).toPromise().then((res) => {
+  //     console.log('API response:', res);
+  //     var service = <ServiceObject>res
+  //     return <Departament[]>service.data;
+  //   });
+  // }
+  
+
+  createMunicipality(entity: String, municipality: Municipality): Promise<ServiceObject> {
+    return this.httpClient.post(`${this.endpoint}${entity}`, municipality).toPromise().then((res) => {
+      return <ServiceObject>res;
+    })
+  }
+
+  updateMunicipality(entity: String, municipality: Municipality): Promise<ServiceObject> {
+    return this.httpClient.put(`${this.endpoint}${entity}/${municipality.id}`, municipality).toPromise().then((res) => {
+      return <ServiceObject>res;
+    })
+  }
+
+  deleteMunicipality(id: number): Promise<ServiceObject> {
+    return this.httpClient.delete(`${this.endpoint}municipalities/destroy/${id}`).toPromise().then((res) => {
       return <ServiceObject>res;
     })
   }

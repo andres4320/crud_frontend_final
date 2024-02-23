@@ -68,7 +68,8 @@ export class CountryComponent implements OnInit {
     this.getCountry()
   }
 
-  async viewDepartament() {
-    await this.router.navigate(['/departament']);
+  async viewDepartament(countryId: any) {
+    // await this.router.navigate(['/departament']);
+    await this.router.navigate(['/departament'], { queryParams: { countryId: countryId } });
   }
 }

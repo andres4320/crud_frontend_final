@@ -62,8 +62,10 @@ export class DepartamentComponent implements OnInit {
       console.log('Departamento creado exitosamente:', res);
       this.name = '';
       this.country_id = 0;
-      this.getDepartament();
+      this.getDepartament(); 
     });
+
+    
   }
 
   async updateDepartamentWS() {

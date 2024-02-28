@@ -4,8 +4,6 @@ import { ApiService } from '../service/api/api.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-// import { Router } from '@angular/router';
-// import { DepartamentComponent } from '../departament/departament.component';
 import { Country } from '../models/country.model';
 import { Departament } from '../models/departament.model';
 import { Municipality } from '../models/municipality.model';
@@ -23,7 +21,7 @@ export class MunicipalityComponent implements OnInit {
   public departamentData: Departament[] = [];
   public municipalityData: Municipality[] = [];
   public country_id: number = 0;
-  public departament_id: number = 0;
+  public departaments_id: number = 0;
   public municipality_id: number = 0;
   public country: any = null;
   public departament: any = null;
@@ -34,21 +32,20 @@ export class MunicipalityComponent implements OnInit {
   constructor(private service: ApiService,  private route: ActivatedRoute) { }
   
   ngOnInit() {
+    this.getMunicipality();
     this.getDepartament();
     this.getCountry();
-    // this.getMunicipality();
   }
 
-  // async getMunicipality() {
-  //   const countryId = this.route.snapshot.queryParams['countryId'];
-  //   console.log(countryId);
-  //   if (countryId) {
-  //     this.departamentData = await this.service.getDepartamentByCountry('departaments', countryId);
-  //   } else {
-  //     this.departamentData = await this.service.getDepartament('departaments');
-  //   }
-  //   console.log('Departament data:', this.departamentData);
-  // }
+  async getMunicipality() {
+    const departamentId = this.route.snapshot.queryParams['departamentId'];
+    if (departamentId) {
+      this.municipalityData = await this.service.getMunicipalityByDepartament('municipalities', departamentId);
+    } else {
+      this.municipalityData = await this.service.getMunicipality('municipalities');
+    }
+    console.log('Municipality data:', this.municipalityData);
+  }
 
   async getCountry() {
     this.countryData = await this.service.getCountry('countries');
@@ -62,45 +59,46 @@ export class MunicipalityComponent implements OnInit {
     if (this.municipality) {
       this.updateMunicipalitytWS();
     } else {
-      // this.createMunicipality();
+      this.createMunicipality();
     }
   }
 
-  // async createMunicipality() {
-  //   console.log('entra');
-  //   const newMunicipality = { name: this.name, departament_id: this.departament_id };
+  async createMunicipality() {
+    console.log('entra');
+    const newMunicipality = { name: this.name, departaments_id: this.departaments_id };
 
-  //   this.service.createMunicipality('municipalities/create', newMunicipality).then((res) => {
-  //     console.log('Municipio creado exitosamente:', res);
-  //     this.name = '';
-  //     this.departament_id = 0;
-  //     // this.getMunicipality();
-  //   });
-  // }
+    this.service.createMunicipality('municipalities/create', newMunicipality).then((res) => {
+      console.log('Municipio creado exitosamente:', res);
+      this.name = '';
+      this.country_id = 0;
+      this.departaments_id = 0;
+      this.getMunicipality();
+    });
+  }
 
   async updateMunicipalitytWS() {
     this.municipality.name = this.name;
-    this.municipality.departament.id = this.departament_id;
+    this.municipality.departament.id = this.departaments_id;
 
-    if (this.municipality.country.id !== this.country_id) {
-      await this.service.updateCountry('countries/update', this.country).then((x) => {
-        console.log('País actualizado:', x);
-        this.country = null;
-      });
-    }
+    // if (this.municipality.country.id !== this.country_id) {
+    //   await this.service.updateCountry('countries/update', this.country).then((x) => {
+    //     console.log('País actualizado:', x);
+    //     this.country = null;
+    //   });
+    // }
 
-    if (this.municipality.departament.id !== this.departament_id) {
-      await this.service.updateDepartament('departaments/update', this.departament).then((x) => {
-        console.log('Departamento actualizado:', x);
-        this.departament = null;
-      });
-    }
+    // if (this.municipality.departament.id !== this.departaments_id) {
+    //   await this.service.updateDepartament('departaments/update', this.departament).then((x) => {
+    //     console.log('Departamento actualizado:', x);
+    //     this.departament = null;
+    //   });
+    // }
 
     await this.service.updateMunicipality('municipalities/update', this.municipality).then((x) => {
       this.municipality = null;
       this.name = "";
-      this.departament_id = 0;
-      // this.getMunicipality();
+      this.departaments_id = 0;
+      this.getMunicipality();
     });
   }
 
@@ -111,17 +109,8 @@ export class MunicipalityComponent implements OnInit {
     this.country_id = municipality.country.id;
   }
 
-  // async getMunicipalityDetails() {
-  //   const municipioActual = this.municipalityData.find(dep => dep.id === this.municpality_id);
-  //   console.log(municipioActual);
-  //   if (municipioActual) {
-  //     this.name = municipioActual.name;
-  //     this.country_id = municipioActual.country_id;
-  //   }
-  // }
-
   async deleteMunicipality(id: any) {
     await this.service.deleteMunicipality(id)
-    // this.getMunicipality()
+    this.getMunicipality()
   }
 }

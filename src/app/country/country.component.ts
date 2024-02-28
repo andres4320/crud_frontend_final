@@ -19,8 +19,6 @@ export class CountryComponent implements OnInit {
   public name: string = '';
   public labelMain: string = 'Agregar';
   public country: any = null;
-  // public countryId: number = 0;
-  // public updating: boolean = false;
 
   constructor(private countryService: ApiService, private router: Router) { }
 
@@ -69,7 +67,6 @@ export class CountryComponent implements OnInit {
   }
 
   async viewDepartament(countryId: any) {
-    // await this.router.navigate(['/departament']);
     await this.router.navigate(['/departament'], { queryParams: { countryId: countryId } });
   }
 }

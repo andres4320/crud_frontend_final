@@ -22,7 +22,7 @@
 
             <div class="form-group col-md-4">
                 <label for="inputDepartament">Departamento</label>
-                <select [(ngModel)]="departament_id" [ngModelOptions]="{standalone: true}" id="inputDepartament" class="form-control">
+                <select [(ngModel)]="departaments_id" [ngModelOptions]="{standalone: true}" id="inputDepartament" class="form-control">
                     <option selected disabled>Choose a País...</option>
                     <option [value]="departament.id" *ngFor="let departament of departamentData">{{departament.name}}</option>
                 </select>
@@ -54,8 +54,7 @@
         <tbody class="table-group-divider">
             <tr *ngFor="let municipality of municipalityData; let i = index">
                 <td>{{municipality.id}}</td>
-                <td></td>
-                <!-- <td>{{municipality?.country?.name}}</td> -->
+                <td>{{municipality?.departament?.country?.name}}</td>
                 <td>{{municipality?.departament?.name}}</td>
                 <td>{{municipality.name}}</td>
                 <td>

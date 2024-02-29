@@ -15,7 +15,7 @@
                 <label for="inputCountry">Pais</label>
                 <select [(ngModel)]="country_id" [ngModelOptions]="{standalone: true}" id="inputCountry"
                     class="form-control">
-                    <option selected disabled>Choose a País...</option>
+                    <option selected disabled>Choose a Country...</option>
                     <option [value]="country.id" *ngFor="let country of countryData">{{country.name}}</option>
                 </select>
             </div>
@@ -49,7 +49,7 @@
                 <td>{{departament?.country?.name}}</td>
                 <td>{{departament.name}}</td>
                 <td>
-                    <button type="button" (click)="update(departament)" class="btn btn-success btn-sm">Actualizar</button>
+                    <button (click)="update(departament)" type="button" class="btn btn-success btn-sm">Actualizar</button>
                 </td>
                 <td>
                     <button (click)="deleteDepartament(departament.id)" type="button" class="btn btn-danger btn-sm">Eliminar</button>

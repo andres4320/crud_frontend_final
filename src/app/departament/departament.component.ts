@@ -40,7 +40,7 @@ export class DepartamentComponent implements OnInit {
     } else {
       this.departamentData = await this.service.getDepartament('departaments');
     }
-    console.log('Municipality data:', this.departamentData);
+    console.log('Departament data:', this.departamentData);
   }
 
   async getCountry() {
@@ -64,18 +64,21 @@ export class DepartamentComponent implements OnInit {
       this.country_id = 0;
       this.getDepartament(); 
     });
-
-    
+  }
+  
+  async update(departament: any) {
+    this.labelMain = "Actualizar";
+    this.departament = departament;
+    this.name = departament.name;
+    this.country_id = departament.country_id;
   }
 
   async updateDepartamentWS() {
     this.departament.name = this.name;
+    this.departament.country_id = this.country_id; 
+    
     await this.update(this.departament);
-    console.log(this.departament.country.id);
-    await this.service.updateCountry('countries/update', this.departament.country.id).then((x) => {
-     
-    });
-
+  
     await this.service.updateDepartament('departaments/update', this.departament).then((x) => {
       this.departament = null;
       this.name = "";
@@ -83,14 +86,7 @@ export class DepartamentComponent implements OnInit {
       this.getDepartament();
     });
   }
-
-  async update(departament: any) {
-    this.labelMain = "Actualizar";
-    this.departament = departament;
-    this.name = departament.name;
-    this.country_id = departament.country.id;
-  }
-
+  
   async deleteDepartament(id: any) {
     await this.service.deleteDepartament(id)
     this.getDepartament()

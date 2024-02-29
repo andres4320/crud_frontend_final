@@ -29,6 +29,8 @@ export class MunicipalityComponent implements OnInit {
   public name: string = '';
   public labelMain: string = 'Agregar';
 
+  public filteredDepartments: any = null;
+
   constructor(private service: ApiService,  private route: ActivatedRoute) { }
   
   ngOnInit() {
@@ -66,7 +68,7 @@ export class MunicipalityComponent implements OnInit {
   async createMunicipality() {
     console.log('entra');
     const newMunicipality = { name: this.name, departaments_id: this.departaments_id };
-
+    
     this.service.createMunicipality('municipalities/create', newMunicipality).then((res) => {
       console.log('Municipio creado exitosamente:', res);
       this.name = '';
@@ -75,38 +77,40 @@ export class MunicipalityComponent implements OnInit {
       this.getMunicipality();
     });
   }
+  
+  async update(municipality: any) {
+    this.labelMain = "Actualizar";
+    this.municipality = municipality;
+    this.name = municipality.name;
+    this.country_id = municipality.departament.country.id;
+    this.departaments_id = municipality.departaments_id;
+    console.log('uno', this.departaments_id);
+  }
 
   async updateMunicipalitytWS() {
     this.municipality.name = this.name;
-    this.municipality.departament.id = this.departaments_id;
-
-    // if (this.municipality.country.id !== this.country_id) {
-    //   await this.service.updateCountry('countries/update', this.country).then((x) => {
-    //     console.log('País actualizado:', x);
-    //     this.country = null;
-    //   });
-    // }
-
-    // if (this.municipality.departament.id !== this.departaments_id) {
-    //   await this.service.updateDepartament('departaments/update', this.departament).then((x) => {
-    //     console.log('Departamento actualizado:', x);
-    //     this.departament = null;
-    //   });
-    // }
+    this.municipality.departaments_id = this.departaments_id;
+    console.log('dos', this.municipality.departaments_id);
 
     await this.service.updateMunicipality('municipalities/update', this.municipality).then((x) => {
       this.municipality = null;
       this.name = "";
       this.departaments_id = 0;
+      this.country_id = 0;
       this.getMunicipality();
     });
   }
 
-  async update(municipality: any) {
-    this.labelMain = "Actualizar";
-    this.municipality = municipality;
-    this.name = municipality.name;
-    this.country_id = municipality.country.id;
+  async selectCountry() {
+    this.service.getDepartamentByCountry('departaments', this.country_id)
+      .then((filteredDepartments) => {
+        this.departamentData = filteredDepartments;
+        // Puedes reiniciar el valor seleccionado en el segundo select si lo deseas
+        this.departaments_id = 0;
+      })
+      .catch((error) => {
+        console.error('Error al obtener departamentos filtrados:', error);
+      });
   }
 
   async deleteMunicipality(id: any) {

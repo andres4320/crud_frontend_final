@@ -13,6 +13,7 @@ import { enviroment } from '../../../enviroments/enviroment';
 export class ApiService {
 
   private endpoint = enviroment.api;
+  private departaments: Departament[] = [];
 
   constructor(private httpClient: HttpClient) { }
 
@@ -58,7 +59,6 @@ export class ApiService {
     });
   }
   
-
   createDepartament(entity: String, departament: Departament): Promise<ServiceObject> {
     return this.httpClient.post(`${this.endpoint}${entity}`, departament).toPromise().then((res) => {
       return <ServiceObject>res;
@@ -110,5 +110,8 @@ export class ApiService {
       return <ServiceObject>res;
     })
   }
+
+  //pruebas 
+  
   
 }

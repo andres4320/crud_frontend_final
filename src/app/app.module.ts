@@ -15,13 +15,14 @@ import { DepartamentComponent } from './departament/departament.component';
 import { MunicipalityComponent } from './municipality/municipality.component';
 import { NavbarComponent } from './navbar/navbar.component';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
     CountryComponent,
     DepartamentComponent,
     MunicipalityComponent,
-    CountryComponent,
     AppComponent,
     NavbarComponent,
   ], 
@@ -34,12 +35,15 @@ import { NavbarComponent } from './navbar/navbar.component';
     NbCardModule,
     CommonModule,
     RouterModule.forRoot(routes),
-    NavbarComponent
+    NavbarComponent,
+
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
   exports: [
     NavbarComponent,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

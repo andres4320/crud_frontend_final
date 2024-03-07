@@ -5,9 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
-
 import { ToastrService } from 'ngx-toastr';
-
 
 @Component({
   selector: 'app-country',
@@ -80,30 +78,12 @@ export class CountryComponent implements OnInit {
     this.getCountry()
     this.toastrService.success('El país se ha eliminado exitosamente', 'Éxito');
     } catch (error) {
-    this.toastrService.error('No se puede eliminar el país, hay departamentos que dependen de este', 'Error');
-  }
+    this.toastrService.error('No se puede eliminar el país', 'Error');
+    }
   }
 
   async viewDepartament(countryId: any) {
     await this.router.navigate(['/departament'], { queryParams: { countryId: countryId } });
-  }
-
-
-  //Puesbas de Toastr
-  showToaster() {
-    this.toastrService.success('This is a success message!', 'Success');
-  }  
-  
-  showError() {
-    this.toastrService.error('Something Went to Wrong', 'Error');
-  }
-  
-  showInfo() {
-    this.toastrService.info('This is an info message', 'Info');
-  }
-  
-  showWarning() {
-    this.toastrService.warning('Warning message', 'Warning');
   }  
 
 }

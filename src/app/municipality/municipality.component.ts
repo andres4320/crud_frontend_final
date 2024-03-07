@@ -7,6 +7,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Country } from '../models/country.model';
 import { Departament } from '../models/departament.model';
 import { Municipality } from '../models/municipality.model';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-municipality',
@@ -31,7 +33,7 @@ export class MunicipalityComponent implements OnInit {
 
   public filteredDepartments: any = null;
 
-  constructor(private service: ApiService,  private route: ActivatedRoute) { }
+  constructor(private service: ApiService,  private route: ActivatedRoute, private toastrService: ToastrService) { }
   
   ngOnInit() {
     this.getMunicipality();
@@ -68,7 +70,7 @@ export class MunicipalityComponent implements OnInit {
   async createMunicipality() {
     console.log('entra');
     const newMunicipality = { name: this.name, departaments_id: this.departaments_id };
-    
+    try {
     this.service.createMunicipality('municipalities/create', newMunicipality).then((res) => {
       console.log('Municipio creado exitosamente:', res);
       this.name = '';
@@ -76,6 +78,10 @@ export class MunicipalityComponent implements OnInit {
       this.departaments_id = 0;
       this.getMunicipality();
     });
+    this.toastrService.success('El municipio se ha creado exitosamente', 'Éxito');
+    } catch (error) {
+    this.toastrService.error('No se puede crear el municipio', 'Error');
+    }
   }
   
   async update(municipality: any) {
@@ -91,7 +97,7 @@ export class MunicipalityComponent implements OnInit {
     this.municipality.name = this.name;
     this.municipality.departaments_id = this.departaments_id;
     console.log('dos', this.municipality.departaments_id);
-
+    try {
     await this.service.updateMunicipality('municipalities/update', this.municipality).then((x) => {
       this.municipality = null;
       this.name = "";
@@ -99,13 +105,16 @@ export class MunicipalityComponent implements OnInit {
       this.country_id = 0;
       this.getMunicipality();
     });
+    this.toastrService.success('El municipio se ha actualizado exitosamente', 'Éxito');
+    } catch (error) {
+    this.toastrService.error('No se puede actualizar el municipio', 'Error');
+    }
   }
 
   async selectCountry() {
     this.service.getDepartamentByCountry('departaments', this.country_id)
       .then((filteredDepartments) => {
         this.departamentData = filteredDepartments;
-        // Puedes reiniciar el valor seleccionado en el segundo select si lo deseas
         this.departaments_id = 0;
       })
       .catch((error) => {
@@ -114,7 +123,12 @@ export class MunicipalityComponent implements OnInit {
   }
 
   async deleteMunicipality(id: any) {
+    try {
     await this.service.deleteMunicipality(id)
     this.getMunicipality()
+    this.toastrService.success('El departamento se ha eliminado exitosamente', 'Éxito');
+    } catch (error) {
+    this.toastrService.error('No se puede eliminar el departamento', 'Error');
+    }
   }
 }

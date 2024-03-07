@@ -109,9 +109,6 @@ export class ApiService {
     return this.httpClient.delete(`${this.endpoint}municipalities/destroy/${id}`).toPromise().then((res) => {
       return <ServiceObject>res;
     })
-  }
-
-  //pruebas 
-  
+  }  
   
 }

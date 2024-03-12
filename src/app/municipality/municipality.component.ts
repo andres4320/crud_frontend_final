@@ -41,6 +41,14 @@ export class MunicipalityComponent implements OnInit {
     this.getCountry();
   }
 
+  async getCountry() {
+    this.countryData = await this.service.getCountry('countries');
+  }
+
+  async getDepartament() {
+    this.departamentData = await this.service.getDepartament('departaments');
+  }
+
   async getMunicipality() {
     const departamentId = this.route.snapshot.queryParams['departamentId'];
     if (departamentId) {
@@ -49,14 +57,6 @@ export class MunicipalityComponent implements OnInit {
       this.municipalityData = await this.service.getMunicipality('municipalities');
     }
     console.log('Municipality data:', this.municipalityData);
-  }
-
-  async getCountry() {
-    this.countryData = await this.service.getCountry('countries');
-  }
-
-  async getDepartament() {
-    this.departamentData = await this.service.getDepartament('departaments');
   }
 
   onButtonClick() {
@@ -68,19 +68,25 @@ export class MunicipalityComponent implements OnInit {
   }
 
   async createMunicipality() {
-    console.log('entra');
-    const newMunicipality = { name: this.name, departaments_id: this.departaments_id };
-    try {
-    this.service.createMunicipality('municipalities/create', newMunicipality).then((res) => {
-      console.log('Municipio creado exitosamente:', res);
-      this.name = '';
-      this.country_id = 0;
-      this.departaments_id = 0;
-      this.getMunicipality();
-    });
-    this.toastrService.success('El municipio se ha creado exitosamente', 'Éxito');
-    } catch (error) {
-    this.toastrService.error('No se puede crear el municipio', 'Error');
+    console.log('Entra a crear');
+    console.log('Valor de departaments_id:', this.departaments_id);
+    if(!this.departaments_id){
+      this.toastrService.error('Debe seleccionar un departamento', 'Error');
+    } else {
+      const newMunicipality = { name: this.name, departaments_id: this.departaments_id };
+      console.log('Arreglo de Municipios',newMunicipality);
+      try {
+      this.service.createMunicipality('municipalities/create', newMunicipality).then((res) => {
+        console.log('Municipio creado exitosamente:', res);
+        this.name = '';
+        this.country_id = 0;
+        this.departaments_id = 0;
+        this.getMunicipality();
+      });
+      this.toastrService.success('El municipio se ha creado exitosamente', 'Éxito');
+      } catch (error) {
+      this.toastrService.error('No se puede crear el municipio', 'Error');
+      }
     }
   }
   
@@ -112,14 +118,12 @@ export class MunicipalityComponent implements OnInit {
   }
 
   async selectCountry() {
+    // this.departaments_id = 0;
     this.service.getDepartamentByCountry('departaments', this.country_id)
       .then((filteredDepartments) => {
         this.departamentData = filteredDepartments;
-        this.departaments_id = 0;
+        console.log('Selecciono el pais',this.departamentData, this.departaments_id);
       })
-      .catch((error) => {
-        console.error('Error al obtener departamentos filtrados:', error);
-      });
   }
 
   async deleteMunicipality(id: any) {

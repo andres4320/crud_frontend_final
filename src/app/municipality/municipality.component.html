@@ -13,7 +13,7 @@
         <form class="form-group">
             <div class="form-group col-md-4">
                 <label for="inputCountry">Pais</label>
-                <select value="" [(ngModel)]="country_id" (ngModelChange)="selectCountry()" [ngModelOptions]="{standalone: true}" id="inputCountry" class="form-control">Choose a País...
+                <select [(ngModel)]="country_id" (ngModelChange)="selectCountry()" [ngModelOptions]="{standalone: true}" id="inputCountry" class="form-control">Choose a País...
                     <option selected disabled>Choose a Country...</option>
                     <option [value]="country.id" *ngFor="let country of countryData">{{country.name}}</option>
                 </select>
@@ -22,7 +22,7 @@
             <div class="form-group col-md-4">
                 <label for="inputDepartament">Departamento</label>
                 <select [(ngModel)]="departaments_id" [ngModelOptions]="{standalone: true}" id="inputDepartament" class="form-control">
-                    <option selected disabled>Choose a Departament...</option>
+                    <option value="" selected >Choose a Departament...</option>
                     <option [value]="departament.id" *ngFor="let departament of departamentData">{{departament.name}}</option>
                 </select>
             </div>

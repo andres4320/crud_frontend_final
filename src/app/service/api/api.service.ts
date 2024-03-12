@@ -13,7 +13,6 @@ import { enviroment } from '../../../enviroments/enviroment';
 export class ApiService {
 
   private endpoint = enviroment.api;
-  private departaments: Departament[] = [];
 
   constructor(private httpClient: HttpClient) { }
 
@@ -93,7 +92,7 @@ export class ApiService {
     });
   }
 
-  createMunicipality(entity: String, municipality: Municipality): Promise<ServiceObject> {
+  async createMunicipality(entity: String, municipality: Municipality): Promise<ServiceObject> {
     return this.httpClient.post(`${this.endpoint}${entity}`, municipality).toPromise().then((res) => {
       return <ServiceObject>res;
     })

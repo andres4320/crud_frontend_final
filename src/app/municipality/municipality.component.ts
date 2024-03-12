@@ -56,7 +56,6 @@ export class MunicipalityComponent implements OnInit {
     } else {
       this.municipalityData = await this.service.getMunicipality('municipalities');
     }
-    console.log('Municipality data:', this.municipalityData);
   }
 
   onButtonClick() {
@@ -68,16 +67,12 @@ export class MunicipalityComponent implements OnInit {
   }
 
   async createMunicipality() {
-    console.log('Entra a crear');
-    console.log('Valor de departaments_id:', this.departaments_id);
     if(!this.departaments_id){
       this.toastrService.error('Debe seleccionar un departamento', 'Error');
     } else {
       const newMunicipality = { name: this.name, departaments_id: this.departaments_id };
-      console.log('Arreglo de Municipios',newMunicipality);
       try {
       this.service.createMunicipality('municipalities/create', newMunicipality).then((res) => {
-        console.log('Municipio creado exitosamente:', res);
         this.name = '';
         this.country_id = 0;
         this.departaments_id = 0;
@@ -96,13 +91,11 @@ export class MunicipalityComponent implements OnInit {
     this.name = municipality.name;
     this.country_id = municipality.departament.country.id;
     this.departaments_id = municipality.departaments_id;
-    console.log('uno', this.departaments_id);
   }
 
   async updateMunicipalitytWS() {
     this.municipality.name = this.name;
     this.municipality.departaments_id = this.departaments_id;
-    console.log('dos', this.municipality.departaments_id);
     try {
     await this.service.updateMunicipality('municipalities/update', this.municipality).then((x) => {
       this.municipality = null;
@@ -122,7 +115,6 @@ export class MunicipalityComponent implements OnInit {
     this.service.getDepartamentByCountry('departaments', this.country_id)
       .then((filteredDepartments) => {
         this.departamentData = filteredDepartments;
-        console.log('Selecciono el pais',this.departamentData, this.departaments_id);
       })
   }
 

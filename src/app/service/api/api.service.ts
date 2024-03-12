@@ -52,7 +52,6 @@ export class ApiService {
 
   getDepartamentByCountry(entity: string, countryId: number): Promise<Departament[]> {
     return this.httpClient.get(`${this.endpoint}${entity}?countryId=${countryId}`).toPromise().then((res) => {
-      console.log('API response:', res);
       var service = <ServiceObject>res
       return <Departament[]>service.data;
     });
@@ -86,7 +85,6 @@ export class ApiService {
 
   getMunicipalityByDepartament(entity: string, departamentId: number): Promise<Municipality[]> {
     return this.httpClient.get(`${this.endpoint}${entity}?departamentId=${departamentId}`).toPromise().then((res) => {
-      console.log('API response:', res);
       var service = <ServiceObject>res
       return <Municipality[]>service.data;
     });

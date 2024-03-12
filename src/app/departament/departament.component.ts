@@ -41,7 +41,6 @@ export class DepartamentComponent implements OnInit {
     } else {
       this.departamentData = await this.service.getDepartament('departaments');
     }
-    console.log('Departament data:', this.departamentData);
   }
 
   async getCountry() {
@@ -60,7 +59,6 @@ export class DepartamentComponent implements OnInit {
     const newDepartament = { name: this.name, country_id: this.country_id };
     try {
     await this.service.createDepartament('departaments/create', newDepartament).then((res) => {
-      console.log('Departamento creado exitosamente:', res);
       this.name = '';
       this.country_id = 0;
       this.getDepartament(); 

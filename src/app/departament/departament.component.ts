@@ -26,7 +26,6 @@ export class DepartamentComponent implements OnInit {
   public country: any = null;
   public labelMain: string = 'Agregar';
 
-
   constructor(private service: ApiService,  private route: ActivatedRoute, private router: Router, private toastrService: ToastrService) { }
 
   ngOnInit() {

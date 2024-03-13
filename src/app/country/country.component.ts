@@ -20,21 +20,11 @@ export class CountryComponent implements OnInit {
   public name: string = '';
   public labelMain: string = 'Agregar';
   public country: any = null;
-  public darkTheme = false;
 
   constructor(private countryService: ApiService, private router: Router, private toastrService: ToastrService) { }
 
   ngOnInit() {
     this.getCountry();
-    const storedTheme = localStorage.getItem('theme');
-    this.darkTheme = storedTheme === 'dark';
-    document.body.classList.toggle('dark-theme', this.darkTheme);
-  }
-
-  toggleDarkTheme(): void {
-    this.darkTheme = !this.darkTheme;
-    localStorage.setItem('theme', this.darkTheme ? 'dark' : 'light');
-    document.body.classList.toggle('dark-theme', this.darkTheme);
   }
 
   async getCountry() {

@@ -14,10 +14,6 @@ body {
   background-color: var(--background-color);
 }
 
-button, div.miBotonClase {
-  font-size: 0.9em !important;
-}
-
 .dark-theme #cardDark {
   background-color: #343434; 
   color: #fffefe;

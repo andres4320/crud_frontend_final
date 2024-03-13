@@ -9,7 +9,6 @@ import { Departament } from '../models/departament.model';
 import { Municipality } from '../models/municipality.model';
 import { ToastrService } from 'ngx-toastr';
 
-
 @Component({
   selector: 'app-municipality',
   standalone: true,
@@ -30,7 +29,6 @@ export class MunicipalityComponent implements OnInit {
   public municipality: any = null;
   public name: string = '';
   public labelMain: string = 'Agregar';
-
   public filteredDepartments: any = null;
 
   constructor(private service: ApiService,  private route: ActivatedRoute, private toastrService: ToastrService) { }
@@ -111,7 +109,6 @@ export class MunicipalityComponent implements OnInit {
   }
 
   async selectCountry() {
-    // this.departaments_id = 0;
     this.service.getDepartamentByCountry('departaments', this.country_id)
       .then((filteredDepartments) => {
         this.departamentData = filteredDepartments;

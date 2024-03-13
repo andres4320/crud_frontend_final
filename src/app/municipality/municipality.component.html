@@ -1,11 +1,11 @@
 <app-navbar></app-navbar>
-<div class="card table-responsive m-4">
+<div id="cardDark" class="card table-responsive m-4">
     <div class="card-header text-center">
         <h5 class="card-title">CRUD de Municipios</h5>
     </div>
 </div>
 
-<div class="card table-responsive m-4">
+<div id="cardDark" class="card table-responsive m-4">
     <div class="card-header">
         <h6 class="card-title text-center">{{labelMain}} Municipios</h6>
     </div>
@@ -52,7 +52,8 @@
         </thead>
         <tbody class="table-group-divider">
             <tr *ngFor="let municipality of municipalityData; let i = index">
-                <td>{{municipality.id}}</td>
+                <!-- <td>{{municipality.id}}</td> -->
+                <td>{{i+1}}</td>
                 <td>{{municipality?.departament?.country?.name}}</td>
                 <td>{{municipality?.departament?.name}}</td>
                 <td>{{municipality.name}}</td>

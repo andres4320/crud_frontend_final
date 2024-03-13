@@ -1,8 +1,14 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg">
     <div class="container">
         <a class="nav-item nav-link" href="#">CRUD</a>
         <a class="nav-item nav-link" href="/country">Paises</a>
         <a class="nav-item nav-link" href="/departament">Departamentos</a>
         <a class="nav-item nav-link" href="/municipality">Municipios</a>
+        <label class="switch">
+            <input type="checkbox" class="input" (change)="toggleDarkTheme()">
+            <div class="rail">
+                <span class="circle"></span>
+            </div>
+        </label>
     </div>
 </nav>

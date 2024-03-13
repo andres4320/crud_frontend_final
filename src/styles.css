@@ -1,7 +1,36 @@
 @import 'ngx-toastr/toastr';
 
-:root {
-    color-scheme: light dark;
+th, td, label {
+  font-size: 1.2em !important;
+}
+.dark-theme {
+  background-color: #494949; 
+  color: #fff;
+}
+
+body {
+  color: var(--color);
+  background-color: var(--background-color);
+}
+
+button {
+  border: none;
+  font-size: 0.9em !important;
+}
+
+.dark-theme #cardDark {
+  background-color: #343434; 
+  color: #fffefe;
+  border-color: #fffefe;
+}
+
+.dark-theme table {
+  border-color: #373737;
+}
+
+.dark-theme th, .dark-theme td {
+  background-color: #343434; 
+  color: #fffefe;
 }
 
 

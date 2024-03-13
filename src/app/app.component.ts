@@ -10,7 +10,6 @@ import { CommonModule } from '@angular/common';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  title = 'crud_front';
 
   constructor(private modalService: NgbModal) {
   }

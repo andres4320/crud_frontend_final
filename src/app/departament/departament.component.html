@@ -1,11 +1,11 @@
 <app-navbar></app-navbar>
-<div class="card table-responsive m-4">
+<div id="cardDark" class="card table-responsive m-4">
     <div class="card-header text-center">
         <h5 class="card-title">CRUD de Departamentos</h5>
     </div>
 </div>
 
-<div class="card table-responsive m-4">
+<div id="cardDark" class="card table-responsive m-4">
     <div class="card-header">
         <h6 class="card-title text-center">{{labelMain}} Departamento</h6>
     </div>
@@ -41,11 +41,12 @@
                 <th scope="col">Departamento</th>
                 <th scope="col">Actualizar</th>
                 <th scope="col">Eliminar</th>
+                <th scope="col">Municipios</th>
             </tr>
         </thead>
         <tbody class="table-group-divider">
             <tr *ngFor="let departament of departamentData; let i = index">
-                <td>{{departament.id}}</td>
+                <td>{{i+1}}</td>
                 <td>{{departament?.country?.name}}</td>
                 <td>{{departament.name}}</td>
                 <td>

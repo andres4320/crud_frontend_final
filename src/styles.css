@@ -3,6 +3,7 @@
 th, td, label {
   font-size: 1.2em !important;
 }
+
 .dark-theme {
   background-color: #494949; 
   color: #fff;
@@ -13,8 +14,7 @@ body {
   background-color: var(--background-color);
 }
 
-button {
-  border: none;
+button, div.miBotonClase {
   font-size: 0.9em !important;
 }
 

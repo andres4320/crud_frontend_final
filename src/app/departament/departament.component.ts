@@ -7,16 +7,18 @@ import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { DataTablesModule } from 'angular-datatables';
 
 @Component({
   selector: 'app-departament',
   standalone: true,
-  imports: [CommonModule, FormsModule, NavbarComponent],
+  imports: [CommonModule, FormsModule, NavbarComponent, DataTablesModule],
   templateUrl: './departament.component.html',
   styleUrl: './departament.component.scss'
 })
 export class DepartamentComponent implements OnInit {
 
+  dtOptions: DataTables.Settings = {};
   public departamentData: Departament[] = [];
   public countryData: Country[] = [];
   public name: string = '';
@@ -25,12 +27,17 @@ export class DepartamentComponent implements OnInit {
   public departament: any = null;
   public country: any = null;
   public labelMain: string = 'Agregar';
+  public isDataLoaded: boolean = false;
 
   constructor(private service: ApiService,  private route: ActivatedRoute, private router: Router, private toastrService: ToastrService) { }
 
   ngOnInit() {
     this.getDepartament();
     this.getCountry();
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      lengthChange: false
+    }; 
   }
 
   async getDepartament() {
@@ -39,7 +46,7 @@ export class DepartamentComponent implements OnInit {
       this.departamentData = await this.service.getDepartamentByCountry('departaments', countryId);
     } else {
       this.departamentData = await this.service.getDepartament('departaments');
-    }
+    } this.isDataLoaded = true;
   }
 
   async getCountry() {

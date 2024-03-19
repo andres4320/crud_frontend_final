@@ -8,16 +8,18 @@ import { Country } from '../models/country.model';
 import { Departament } from '../models/departament.model';
 import { Municipality } from '../models/municipality.model';
 import { ToastrService } from 'ngx-toastr';
+import { DataTablesModule } from 'angular-datatables';
 
 @Component({
   selector: 'app-municipality',
   standalone: true,
-  imports: [NavbarComponent, CommonModule, FormsModule],
+  imports: [NavbarComponent, CommonModule, FormsModule, DataTablesModule],
   templateUrl: './municipality.component.html',
   styleUrl: './municipality.component.scss'
 })
 export class MunicipalityComponent implements OnInit {
 
+  dtOptions: DataTables.Settings = {};
   public countryData: Country[] = [];
   public departamentData: Departament[] = [];
   public municipalityData: Municipality[] = [];
@@ -30,6 +32,7 @@ export class MunicipalityComponent implements OnInit {
   public name: string = '';
   public labelMain: string = 'Agregar';
   public filteredDepartments: any = null;
+  public isDataLoaded: boolean = false;
 
   constructor(private service: ApiService,  private route: ActivatedRoute, private toastrService: ToastrService) { }
   
@@ -37,6 +40,10 @@ export class MunicipalityComponent implements OnInit {
     this.getMunicipality();
     this.getDepartament();
     this.getCountry();
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      lengthChange: false
+    }; 
   }
 
   async getCountry() {
@@ -53,7 +60,7 @@ export class MunicipalityComponent implements OnInit {
       this.municipalityData = await this.service.getMunicipalityByDepartament('municipalities', departamentId);
     } else {
       this.municipalityData = await this.service.getMunicipality('municipalities');
-    }
+    } this.isDataLoaded = true;
   }
 
   onButtonClick() {

@@ -7,49 +7,55 @@
 </div>
 
 <div class="col-6">
-<div id="cardDark" class="card table-responsive m-4">
-    <div class="card-header">
-        <h3 class="card-title text-center">{{labelMain}} País</h3>
-    </div>
-    <div *ngIf="true" class="card-body">
-        <form class="row">
-            <label for="formCountry" class="mb-1">Ingresa el país</label>
-            <div class="col-7">
-                <input [(ngModel)]="name" type="text" class="form-control mb-2" [ngModelOptions]="{standalone: true}" id="formCountry" placeholder="Ingresa el nombre del país">
-            </div>
-            <div class="col-5">
-                <button (click)="onButtonClick()" type="button" class="btn btn-primary"> {{labelMain}} País </button>
-            </div>
-        </form>
-    </div>
+    <div id="cardDark" class="card table-responsive m-4">
+        <div class="card-header">
+            <h3 class="card-title text-center">{{labelMain}} País</h3>
+        </div>
+        <div *ngIf="true" class="card-body">
+            <form class="row">
+                <label for="formCountry" class="mb-1">Ingresa el país</label>
+                <div class="col-7">
+                    <input [(ngModel)]="name" type="text" class="form-control mb-2"
+                        [ngModelOptions]="{standalone: true}" id="formCountry" placeholder="Ingresa el nombre del país">
+                </div>
+                <div class="col-5">
+                    <button (click)="onButtonClick()" type="button" class="btn btn-primary"> {{labelMain}} País
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
 <div class="card table-responsive m-4 text-center">
-    <table class="table table-striped table-bordered ">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Actualizar</th> 
-                <th scope="col">Eliminar</th>
-                <th scope="col">Dpto</th> 
-            </tr>
-        </thead>
-        <tbody class="table-group-divider">
-            <tr *ngFor="let country of countryData; let i = index">
-                <td>{{ i+1 }}</td>
-                <td>{{ country.name }}</td>
-                <td>
-                    <button (click)="updateCountry(country)" type="button" class="btn btn-success">Actualizar</button>
-                </td>
-                <td>
-                    <button (click)="deleteCountry(country.id)" type="button" class="btn btn-danger">Eliminar</button>
-                </td>
-                <td>
-                    <button (click)="viewDepartament(country.id)" class="btn btn-info">Ver Dpto</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="table-container">
+        <table id="myTable" *ngIf="countryData" datatable [dtOptions]="dtOptions" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Actualizar</th>
+                    <th scope="col">Eliminar</th>
+                    <th scope="col">Dpto</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                <tr *ngFor="let country of countryData; let i = index">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ country.name }}</td>
+                    <td>
+                        <button (click)="updateCountry(country)" type="button"
+                            class="btn btn-success">Actualizar</button>
+                    </td>
+                    <td>
+                        <button (click)="deleteCountry(country.id)" type="button"
+                            class="btn btn-danger">Eliminar</button>
+                    </td>
+                    <td>
+                        <button (click)="viewDepartament(country.id)" class="btn btn-info">Ver Dpto</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

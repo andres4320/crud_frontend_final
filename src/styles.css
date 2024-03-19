@@ -1,5 +1,15 @@
 @import 'ngx-toastr/toastr';
 
+.table-container {
+  margin: 20px; /* Ajusta el valor según sea necesario */
+}
+
+.card {
+  background-color: #fff; /* Ajusta el color de fondo según sea necesario */
+  border: 1px solid #ccc; /* Ajusta el estilo del borde según sea necesario */
+  border-radius: 8px; /* Ajusta el radio de borde según sea necesario */
+}
+
 th, td, label {
   font-size: 1.2em !important;
 }
@@ -21,12 +31,38 @@ body {
 }
 
 .dark-theme table {
-  border-color: #373737;
+  border-color: #ffffff;
 }
 
 .dark-theme th, .dark-theme td {
   background-color: #343434; 
   color: #fffefe;
+
 }
+
+/* .dark-theme .mat-header-cell {
+  background-color: #343434; 
+  color: #fff;
+}
+
+
+.dark-theme .mat-footer-cell {
+  background-color: #343434; 
+  color: #fff; 
+} */
+
+.dark-theme .card {
+  background-color: #343434; 
+  color: #fffefe;
+  border-color: #fffefe;
+}
+
+
+#myTable th {
+  text-align: center; 
+  vertical-align: middle; 
+}
+
+
 
 

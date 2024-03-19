@@ -6,15 +6,18 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { ToastrService } from 'ngx-toastr';
+import { DataTablesModule } from 'angular-datatables';
 
 @Component({
   selector: 'app-country',
   standalone: true,
-  imports: [CommonModule, FormsModule, NavbarComponent],
+  imports: [CommonModule, FormsModule, NavbarComponent, DataTablesModule],
   templateUrl: './country.component.html',
   styleUrls: ['./country.component.scss']
 })
 export class CountryComponent implements OnInit {
+
+  dtOptions: DataTables.Settings = {};
 
   public countryData!: Country[];
   public name: string = '';
@@ -25,10 +28,15 @@ export class CountryComponent implements OnInit {
 
   ngOnInit() {
     this.getCountry();
+    this.dtOptions = {
+      pagingType: 'full_numbers', 
+      lengthChange: false
+    };  
   }
 
   async getCountry() {
     this.countryData = await this.countryService.getCountry('countries');
+    console.log(this.countryData);
   }
 
   onButtonClick() {
@@ -74,8 +82,8 @@ export class CountryComponent implements OnInit {
 
   async deleteCountry(id: any) {
     try {
-    await this.countryService.deleteCountry(id)
-    this.getCountry()
+    await this.countryService.deleteCountry(id);
+    this.getCountry();
     this.toastrService.success('El país se ha eliminado exitosamente', 'Éxito');
     } catch (error) {
     this.toastrService.error('No se puede eliminar el país', 'Error');

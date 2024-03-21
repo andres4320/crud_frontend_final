@@ -69,7 +69,7 @@ body {
 }
 
 /* Media query para pantallas de hasta 765px */
-@media screen and (max-width: 765px) {
+@media screen and (max-width: 766.78px) {
   .dataTables_length,
   .dataTables_info {
     display: inline-block; /* Cambia la visualización a en línea */

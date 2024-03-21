@@ -93,6 +93,7 @@ export class MunicipalityComponent implements OnInit {
   }
   
   async update(municipality: any) {
+    this.showAddMunicipalityCard = true;
     this.labelMain = "Actualizar";
     this.municipality = municipality;
     this.name = municipality.name;
@@ -112,6 +113,7 @@ export class MunicipalityComponent implements OnInit {
       this.getMunicipality();
     });
     this.toastrService.success('El municipio se ha actualizado exitosamente', 'Éxito');
+    this.showAddMunicipalityCard = false;
     } catch (error) {
     this.toastrService.error('No se puede actualizar el municipio', 'Error');
     }

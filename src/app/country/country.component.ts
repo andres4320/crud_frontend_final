@@ -48,6 +48,11 @@ export class CountryComponent implements OnInit {
   }
 
   async createCountry() {
+    if (!this.name) {
+      this.toastrService.error('Por favor ingrese el país', 'Error');
+      return;
+    }
+
     try {
     await this.countryService.createCountry('countries/create', { name: this.name }).then((x) => {
       this.name = "";
@@ -60,6 +65,10 @@ export class CountryComponent implements OnInit {
   }
 
   async updateCountryWS() {
+    if (!this.name) {
+      this.toastrService.error('Por favor ingrese un nombre para el país', 'Error');
+      return; 
+    }
     this.country.name = this.name;
     try {
     await this.countryService.updateCountry('countries/update', this.country).then((x) => {

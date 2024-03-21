@@ -65,12 +65,16 @@ export class DepartamentComponent implements OnInit {
   }
 
   async createDepartament() {
+    if (!this.name || !this.country_id) {
+      this.toastrService.error('Por favor ingrese el país y/o departamento', 'Error');
+      return;
+    }
     const newDepartament = { name: this.name, country_id: this.country_id };
     try {
     await this.service.createDepartament('departaments/create', newDepartament).then((res) => {
       this.name = '';
       this.country_id = 0;
-      this.getDepartament(); 
+      this.getDepartament();
     });
     this.toastrService.success('El departamento se ha creado exitosamente', 'Éxito');
     } catch (error) {
@@ -79,6 +83,7 @@ export class DepartamentComponent implements OnInit {
   }
   
   async update(departament: any) {
+    this.showAddDepartmentCard = true;
     this.labelMain = "Actualizar";
     this.departament = departament;
     this.name = departament.name;
@@ -86,6 +91,10 @@ export class DepartamentComponent implements OnInit {
   }
 
   async updateDepartamentWS() {
+    if (!this.name || !this.country_id) {
+      this.toastrService.error('Por favor ingrese el país y/o departamento', 'Error');
+      return;
+    }
     this.departament.name = this.name;
     this.departament.country_id = this.country_id; 
     

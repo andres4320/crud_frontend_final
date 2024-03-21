@@ -33,7 +33,7 @@ export class MunicipalityComponent implements OnInit {
   public labelMain: string = 'Agregar';
   public filteredDepartments: any = null;
   public isDataLoaded: boolean = false;
-
+  
   constructor(private service: ApiService,  private route: ActivatedRoute, private toastrService: ToastrService) { }
   
   ngOnInit() {

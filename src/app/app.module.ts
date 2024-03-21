@@ -10,9 +10,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { routes } from './app.routes';
-// import { CountryComponent } from './country/country.component';
-// import { DepartamentComponent } from './departament/departament.component';
-// import { MunicipalityComponent } from './municipality/municipality.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -21,13 +18,7 @@ import { DataTablesModule } from "angular-datatables";
 
 
 @NgModule({
-  declarations: [
-    // CountryComponent,
-    // DepartamentComponent,
-    // MunicipalityComponent,
-    // AppComponent,
-    // NavbarComponent,
-  ], 
+  declarations: [], 
   imports: [
     BrowserModule,
     NgbModule,

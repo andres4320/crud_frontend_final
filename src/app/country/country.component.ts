@@ -36,7 +36,6 @@ export class CountryComponent implements OnInit {
 
   async getCountry() {
     this.countryData = await this.countryService.getCountry('countries');
-    console.log(this.countryData);
   }
 
   onButtonClick() {

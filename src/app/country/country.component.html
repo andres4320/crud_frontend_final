@@ -7,22 +7,24 @@
 </div>
 
 <div class="col-6">
-    <div id="cardDark" class="card table-responsive m-4">
-        <div class="card-header">
-            <h3 class="card-title text-center">{{labelMain}} País</h3>
-        </div>
-        <div *ngIf="true" class="card-body">
-            <form class="row">
-                <label for="formCountry" class="mb-1">Ingresa el país</label>
-                <div class="col-7">
-                    <input [(ngModel)]="name" type="text" class="form-control mb-2"
-                        [ngModelOptions]="{standalone: true}" id="formCountry" placeholder="Ingresa el nombre del país">
-                </div>
-                <div class="col-5">
-                    <button (click)="onButtonClick()" type="button" class="btn btn-primary"> {{labelMain}} País
-                    </button>
-                </div>
-            </form>
+    <div class="col">
+        <div id="cardDark" class="card table-responsive m-4">
+            <div class="card-header">
+                <h3 class="card-title text-center">{{labelMain}} País</h3>
+            </div>
+            <div *ngIf="true" class="card-body">
+                <form class="row">
+                    <label for="formCountry" class="mb-1">Nombre del Pais</label>
+                    <div class="col-7">
+                        <input [(ngModel)]="name" type="text" class="form-control mb-2"
+                            [ngModelOptions]="{standalone: true}" id="formCountry" placeholder="Ingresa el país">
+                    </div>
+                    <div class="col-5">
+                        <button (click)="onButtonClick()" type="button" class="btn btn-primary"> {{labelMain}} País
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

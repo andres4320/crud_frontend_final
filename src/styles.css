@@ -40,17 +40,6 @@ body {
 
 }
 
-/* .dark-theme .mat-header-cell {
-  background-color: #343434; 
-  color: #fff;
-}
-
-
-.dark-theme .mat-footer-cell {
-  background-color: #343434; 
-  color: #fff; 
-} */
-
 .dark-theme .card {
   background-color: #343434; 
   color: #fffefe;
@@ -63,6 +52,28 @@ body {
   vertical-align: middle; 
 }
 
+@media screen and (max-width: 992px) { /* Aplica estilos cuando la pantalla tenga 992px de ancho o menos */
+  .col-6 {
+    width: auto; /* Elimina el ancho fijo de col-6 */
+    flex: 0 0 100%; /* Hace que la columna ocupe todo el ancho */
+    max-width: 100%; /* Asegura que la columna no exceda el ancho de su contenedor */
+  }
+}
 
+@media screen and (max-width: 910px) {
+  .dataTables_length,
+  .dataTables_info {
+    display: block; /* Cambia la visualización a bloque */
+    margin-bottom: 10px; /* Añade un margen inferior para separarlos */
+  }
+}
 
+/* Media query para pantallas de hasta 765px */
+@media screen and (max-width: 765px) {
+  .dataTables_length,
+  .dataTables_info {
+    display: inline-block; /* Cambia la visualización a en línea */
+    margin-bottom: 0; /* Elimina el margen inferior */
+  }
+}
 

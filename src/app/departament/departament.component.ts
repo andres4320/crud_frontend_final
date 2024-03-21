@@ -28,10 +28,13 @@ export class DepartamentComponent implements OnInit {
   public country: any = null;
   public labelMain: string = 'Agregar';
   public isDataLoaded: boolean = false;
+  public showAddDepartmentCard: boolean = true;
+  public showAddMunicipalityCard: boolean = true;
 
   constructor(private service: ApiService,  private route: ActivatedRoute, private router: Router, private toastrService: ToastrService) { }
 
   ngOnInit() {
+    this.handleQueryParams();
     this.getDepartament();
     this.getCountry();
     this.dtOptions = {
@@ -111,6 +114,14 @@ export class DepartamentComponent implements OnInit {
   }
 
   async viewMunicipality(departamentId: any) {
-    await this.router.navigate(['/municipality'], { queryParams: { departamentId: departamentId } });
+    await this.router.navigate(['/municipality'], { queryParams: { departamentId: departamentId, showAddMunicipalityCard: false } });
+  }
+
+  private handleQueryParams() {
+    this.route.queryParams.subscribe(params => {
+      if (params['showAddDepartmentCard'] === 'false') {
+        this.showAddDepartmentCard = false;
+      }
+    }).unsubscribe(); 
   }
 }

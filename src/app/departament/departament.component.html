@@ -4,7 +4,7 @@
         <h2 class="card-title">CRUD de Departamentos</h2>
     </div>
 </div>
-<div class="col-6">
+<div class="col-6" *ngIf="showAddDepartmentCard">
     <div id="cardDark" class="card table-responsive m-4">
         <div class="card-header">
             <h3 class="card-title text-center">{{labelMain}} Departamento</h3>
@@ -13,8 +13,7 @@
             <form class="form-group">
                 <div class="form-group col-10">
                     <label for="inputCountry">Selecciona un país</label>
-                    <select [(ngModel)]="country_id" [ngModelOptions]="{standalone: true}" id="inputCountry"
-                        placeholder="Elige un pais" class="form-control">
+                    <select [(ngModel)]="country_id" [ngModelOptions]="{standalone: true}" id="inputCountry" class="form-control">
                         <option selected disabled>Choose a Country...</option>
                         <option [value]="country.id" *ngFor="let country of countryData">{{country.name}}</option>
                     </select>

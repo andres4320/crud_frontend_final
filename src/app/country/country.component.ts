@@ -23,6 +23,7 @@ export class CountryComponent implements OnInit {
   public name: string = '';
   public labelMain: string = 'Agregar';
   public country: any = null;
+  public showAddDepartmentCard: boolean = true;
 
   constructor(private countryService: ApiService, private router: Router, private toastrService: ToastrService) { }
 
@@ -90,7 +91,7 @@ export class CountryComponent implements OnInit {
   }
 
   async viewDepartament(countryId: any) {
-    await this.router.navigate(['/departament'], { queryParams: { countryId: countryId } });
+    await this.router.navigate(['/departament'], { queryParams: { countryId: countryId, showAddDepartmentCard: false } });
   }  
 
 }

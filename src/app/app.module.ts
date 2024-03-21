@@ -13,7 +13,6 @@ import { routes } from './app.routes';
 import { NavbarComponent } from './navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-
 import { DataTablesModule } from "angular-datatables";
 
 

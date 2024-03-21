@@ -33,10 +33,12 @@ export class MunicipalityComponent implements OnInit {
   public labelMain: string = 'Agregar';
   public filteredDepartments: any = null;
   public isDataLoaded: boolean = false;
+  public showAddMunicipalityCard: boolean = true;
   
   constructor(private service: ApiService,  private route: ActivatedRoute, private toastrService: ToastrService) { }
   
   ngOnInit() {
+    this.handleQueryParams();
     this.getMunicipality();
     this.getDepartament();
     this.getCountry();
@@ -130,5 +132,13 @@ export class MunicipalityComponent implements OnInit {
     } catch (error) {
     this.toastrService.error('No se puede eliminar el departamento', 'Error');
     }
+  }
+
+  private handleQueryParams() {
+    this.route.queryParams.subscribe(params => {
+      if (params['showAddMunicipalityCard'] === 'false') {
+        this.showAddMunicipalityCard = false;
+      }
+    }).unsubscribe(); 
   }
 }

@@ -34,9 +34,9 @@ export class MunicipalityComponent implements OnInit {
   public filteredDepartments: any = null;
   public isDataLoaded: boolean = false;
   public showAddMunicipalityCard: boolean = true;
-  
-  constructor(private service: ApiService,  private route: ActivatedRoute, private toastrService: ToastrService) { }
-  
+
+  constructor(private service: ApiService, private route: ActivatedRoute, private toastrService: ToastrService) { }
+
   ngOnInit() {
     this.handleQueryParams();
     this.getMunicipality();
@@ -45,7 +45,7 @@ export class MunicipalityComponent implements OnInit {
     this.dtOptions = {
       pagingType: 'full_numbers',
       lengthChange: false
-    }; 
+    };
   }
 
   async getCountry() {
@@ -74,25 +74,26 @@ export class MunicipalityComponent implements OnInit {
   }
 
   async createMunicipality() {
-    if(!this.departaments_id){
-      this.toastrService.error('Debe seleccionar un departamento', 'Error');
+    if (!this.departaments_id && !this.municipality) {
+      this.toastrService.error('Debe llenar todos los campos para continuar.', 'Error');
     } else {
       const newMunicipality = { name: this.name, departaments_id: this.departaments_id };
       try {
-      this.service.createMunicipality('municipalities/create', newMunicipality).then((res) => {
-        this.name = '';
-        this.country_id = 0;
-        this.departaments_id = 0;
-        this.getMunicipality();
-      });
-      this.toastrService.success('El municipio se ha creado exitosamente', 'Éxito');
+        this.service.createMunicipality('municipalities/create', newMunicipality).then((res) => {
+          this.name = '';
+          this.country_id = 0;
+          this.departaments_id = 0;
+          this.getMunicipality();
+        });
+        this.toastrService.success('El municipio se ha creado exitosamente.', 'Éxito');
       } catch (error) {
-      this.toastrService.error('No se puede crear el municipio', 'Error');
+        this.toastrService.error('No se puede crear el municipio.', 'Error');
       }
     }
   }
-  
+
   async update(municipality: any) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     this.showAddMunicipalityCard = true;
     this.labelMain = "Actualizar";
     this.municipality = municipality;
@@ -102,20 +103,26 @@ export class MunicipalityComponent implements OnInit {
   }
 
   async updateMunicipalitytWS() {
+    console.log('country: ',this.country_id);
+    console.log('departament: ', this.departaments_id);
+    if (this.country_id === null && this.departaments_id === null) {
+      this.toastrService.error('No se puede actualizar el municipio si tanto el país como el municipio están llenos.', 'Error');
+      return;
+    }
     this.municipality.name = this.name;
     this.municipality.departaments_id = this.departaments_id;
     try {
-    await this.service.updateMunicipality('municipalities/update', this.municipality).then((x) => {
-      this.municipality = null;
-      this.name = "";
-      this.departaments_id = 0;
-      this.country_id = 0;
-      this.getMunicipality();
-    });
-    this.toastrService.success('El municipio se ha actualizado exitosamente', 'Éxito');
-    this.showAddMunicipalityCard = false;
+      await this.service.updateMunicipality('municipalities/update', this.municipality).then((x) => {
+        this.municipality = null;
+        this.name = "";
+        this.departaments_id = 0;
+        this.country_id = 0;
+        this.getMunicipality();
+      });
+      this.toastrService.success('El municipio se ha actualizado exitosamente.', 'Éxito');
+      // this.showAddMunicipalityCard = false;
     } catch (error) {
-    this.toastrService.error('No se puede actualizar el municipio', 'Error');
+      this.toastrService.error('No se puede actualizar el municipio.', 'Error');
     }
   }
 
@@ -128,11 +135,11 @@ export class MunicipalityComponent implements OnInit {
 
   async deleteMunicipality(id: any) {
     try {
-    await this.service.deleteMunicipality(id)
-    this.getMunicipality()
-    this.toastrService.success('El departamento se ha eliminado exitosamente', 'Éxito');
+      await this.service.deleteMunicipality(id)
+      this.getMunicipality()
+      this.toastrService.success('El departamento se ha eliminado exitosamente.', 'Éxito');
     } catch (error) {
-    this.toastrService.error('No se puede eliminar el departamento', 'Error');
+      this.toastrService.error('No se puede eliminar el departamento.', 'Error');
     }
   }
 
@@ -141,6 +148,6 @@ export class MunicipalityComponent implements OnInit {
       if (params['showAddMunicipalityCard'] === 'false') {
         this.showAddMunicipalityCard = false;
       }
-    }).unsubscribe(); 
+    }).unsubscribe();
   }
 }

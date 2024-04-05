@@ -66,7 +66,7 @@ export class DepartamentComponent implements OnInit {
 
   async createDepartament() {
     if (!this.name || !this.country_id) {
-      this.toastrService.error('Por favor ingrese el país y/o departamento', 'Error');
+      this.toastrService.error('Por favor ingrese el país y/o departamento.', 'Error');
       return;
     }
     const newDepartament = { name: this.name, country_id: this.country_id };
@@ -76,9 +76,9 @@ export class DepartamentComponent implements OnInit {
       this.country_id = 0;
       this.getDepartament();
     });
-    this.toastrService.success('El departamento se ha creado exitosamente', 'Éxito');
+    this.toastrService.success('El departamento se ha creado exitosamente.', 'Éxito');
     } catch (error) {
-    this.toastrService.error('No se puede crear el departamento', 'Error');
+    this.toastrService.error('No se puede crear el departamento.', 'Error');
     }
   }
   
@@ -92,7 +92,7 @@ export class DepartamentComponent implements OnInit {
 
   async updateDepartamentWS() {
     if (!this.name || !this.country_id) {
-      this.toastrService.error('Por favor ingrese el país y/o departamento', 'Error');
+      this.toastrService.error('Por favor ingrese el país y/o departamento.', 'Error');
       return;
     }
     this.departament.name = this.name;
@@ -106,9 +106,9 @@ export class DepartamentComponent implements OnInit {
       this.country_id = 0;
       this.getDepartament();
     });
-    this.toastrService.success('El departamento se ha actualizado exitosamente', 'Éxito');
+    this.toastrService.success('El departamento se ha actualizado exitosamente.', 'Éxito');
     } catch (error) {
-    this.toastrService.error('No se puede actualizar el departamento', 'Error');
+    this.toastrService.error('No se puede actualizar el departamento.', 'Error');
     }
   }
   
@@ -116,9 +116,9 @@ export class DepartamentComponent implements OnInit {
     try {
     await this.service.deleteDepartament(id)
     this.getDepartament()
-    this.toastrService.success('El departamento se ha eliminado exitosamente', 'Éxito');
+    this.toastrService.success('El departamento se ha eliminado exitosamente.', 'Éxito');
     } catch (error) {
-    this.toastrService.error('No se puede eliminar el departamento', 'Error');
+    this.toastrService.error('No se puede eliminar el departamento.', 'Error');
     }
   }
 

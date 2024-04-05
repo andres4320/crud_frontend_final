@@ -58,15 +58,15 @@ export class CountryComponent implements OnInit {
       this.name = "";
       this.getCountry();
     });
-    this.toastrService.success('El país se ha creado exitosamente', 'Éxito');
+    this.toastrService.success('El país se ha creado exitosamente.', 'Éxito');
     } catch (error) {
-    this.toastrService.error('No se puede crear el país', 'Error');
+    this.toastrService.error('No se puede crear el país.', 'Error');
     }
   }
 
   async updateCountryWS() {
     if (!this.name) {
-      this.toastrService.error('Por favor ingrese un nombre para el país', 'Error');
+      this.toastrService.error('Por favor ingrese un nombre para el país.', 'Error');
       return; 
     }
     this.country.name = this.name;
@@ -77,9 +77,9 @@ export class CountryComponent implements OnInit {
       this.name = "";
       this.getCountry();
     });
-    this.toastrService.success('El país se ha actualizado exitosamente', 'Éxito');
+    this.toastrService.success('El país se ha actualizado exitosamente.', 'Éxito');
     } catch (error) {
-    this.toastrService.error('No se puede actualizar el país', 'Error');
+    this.toastrService.error('No se puede actualizar el país.', 'Error');
     }
   }
 
@@ -93,9 +93,9 @@ export class CountryComponent implements OnInit {
     try {
     await this.countryService.deleteCountry(id);
     this.getCountry();
-    this.toastrService.success('El país se ha eliminado exitosamente', 'Éxito');
+    this.toastrService.success('El país se ha eliminado exitosamente.', 'Éxito');
     } catch (error) {
-    this.toastrService.error('No se puede eliminar el país', 'Error');
+    this.toastrService.error('No se puede eliminar el país.', 'Error');
     }
   }
 

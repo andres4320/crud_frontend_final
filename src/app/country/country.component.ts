@@ -30,9 +30,9 @@ export class CountryComponent implements OnInit {
   ngOnInit() {
     this.getCountry();
     this.dtOptions = {
-      pagingType: 'full_numbers', 
+      pagingType: 'full_numbers',
       lengthChange: false
-    };  
+    };
   }
 
   async getCountry() {
@@ -54,32 +54,32 @@ export class CountryComponent implements OnInit {
     }
 
     try {
-    await this.countryService.createCountry('countries/create', { name: this.name }).then((x) => {
-      this.name = "";
-      this.getCountry();
-    });
-    this.toastrService.success('El país se ha creado exitosamente.', 'Éxito');
+      await this.countryService.createCountry('countries/create', { name: this.name }).then((x) => {
+        this.name = "";
+        this.getCountry();
+      });
+      this.toastrService.success('El país se ha creado exitosamente.', 'Éxito');
     } catch (error) {
-    this.toastrService.error('No se puede crear el país.', 'Error');
+      this.toastrService.error('No se puede crear el país.', 'Error');
     }
   }
 
   async updateCountryWS() {
     if (!this.name) {
       this.toastrService.error('Por favor ingrese un nombre para el país.', 'Error');
-      return; 
+      return;
     }
     this.country.name = this.name;
     try {
-    await this.countryService.updateCountry('countries/update', this.country).then((x) => {
-      this.country = null;
-      this.labelMain = "Agregar";
-      this.name = "";
-      this.getCountry();
-    });
-    this.toastrService.success('El país se ha actualizado exitosamente.', 'Éxito');
+      await this.countryService.updateCountry('countries/update', this.country).then((x) => {
+        this.country = null;
+        this.labelMain = "Agregar";
+        this.name = "";
+        this.getCountry();
+      });
+      this.toastrService.success('El país se ha actualizado exitosamente.', 'Éxito');
     } catch (error) {
-    this.toastrService.error('No se puede actualizar el país.', 'Error');
+      this.toastrService.error('No se puede actualizar el país.', 'Error');
     }
   }
 
@@ -92,16 +92,27 @@ export class CountryComponent implements OnInit {
 
   async deleteCountry(id: any) {
     try {
-    await this.countryService.deleteCountry(id);
-    this.getCountry();
-    this.toastrService.success('El país se ha eliminado exitosamente.', 'Éxito');
+      await this.countryService.deleteCountry(id);
+      this.getCountry();
+      this.toastrService.success('El país se ha eliminado exitosamente.', 'Éxito');
     } catch (error) {
-    this.toastrService.error('No se puede eliminar el país.', 'Error');
+      this.toastrService.error('No se puede eliminar el país.', 'Error');
     }
   }
 
   async viewDepartament(countryId: any) {
-    await this.router.navigate(['/departament'], { queryParams: { countryId: countryId, showAddDepartmentCard: false } });
-  }  
+    try {
+      const departments = await this.countryService.getDepartamentByCountry('departaments', countryId);
+
+      if (Array.isArray(departments) && departments.length > 0) {
+        await this.router.navigate(['/departament'], { queryParams: { countryId: countryId, showAddDepartmentCard: false } });
+      } else {
+        this.toastrService.info('Este país no tiene departamentos.', 'Información');
+      }
+    } catch (error) {
+      console.error('Error al obtener los departamentos del país:', error);
+      this.toastrService.error('Error al obtener los departamentos del país.', 'Error');
+    }
+  }
 
 }

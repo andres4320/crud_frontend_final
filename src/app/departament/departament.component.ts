@@ -31,7 +31,7 @@ export class DepartamentComponent implements OnInit {
   public showAddDepartmentCard: boolean = true;
   public showAddMunicipalityCard: boolean = true;
 
-  constructor(private service: ApiService,  private route: ActivatedRoute, private router: Router, private toastrService: ToastrService) { }
+  constructor(private service: ApiService, private route: ActivatedRoute, private router: Router, private toastrService: ToastrService) { }
 
   ngOnInit() {
     this.handleQueryParams();
@@ -40,7 +40,7 @@ export class DepartamentComponent implements OnInit {
     this.dtOptions = {
       pagingType: 'full_numbers',
       lengthChange: false
-    }; 
+    };
   }
 
   async getDepartament() {
@@ -71,17 +71,17 @@ export class DepartamentComponent implements OnInit {
     }
     const newDepartament = { name: this.name, country_id: this.country_id };
     try {
-    await this.service.createDepartament('departaments/create', newDepartament).then((res) => {
-      this.name = '';
-      this.country_id = 0;
-      this.getDepartament();
-    });
-    this.toastrService.success('El departamento se ha creado exitosamente.', 'Éxito');
+      await this.service.createDepartament('departaments/create', newDepartament).then((res) => {
+        this.name = '';
+        this.country_id = 0;
+        this.getDepartament();
+      });
+      this.toastrService.success('El departamento se ha creado exitosamente.', 'Éxito');
     } catch (error) {
-    this.toastrService.error('No se puede crear el departamento.', 'Error');
+      this.toastrService.error('No se puede crear el departamento.', 'Error');
     }
   }
-  
+
   async update(departament: any) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     this.showAddDepartmentCard = true;
@@ -97,41 +97,53 @@ export class DepartamentComponent implements OnInit {
       return;
     }
     this.departament.name = this.name;
-    this.departament.country_id = this.country_id; 
-    
+    this.departament.country_id = this.country_id;
+
     await this.update(this.departament);
     try {
-    await this.service.updateDepartament('departaments/update', this.departament).then((x) => {
-      this.departament = null;
-      this.name = "";
-      this.country_id = 0;
-      this.getDepartament();
-    });
-    this.toastrService.success('El departamento se ha actualizado exitosamente.', 'Éxito');
+      await this.service.updateDepartament('departaments/update', this.departament).then((x) => {
+        this.departament = null;
+        this.name = "";
+        this.country_id = 0;
+        this.getDepartament();
+      });
+      this.toastrService.success('El departamento se ha actualizado exitosamente.', 'Éxito');
     } catch (error) {
-    this.toastrService.error('No se puede actualizar el departamento.', 'Error');
+      this.toastrService.error('No se puede actualizar el departamento.', 'Error');
     }
   }
-  
+
   async deleteDepartament(id: any) {
     try {
-    await this.service.deleteDepartament(id)
-    this.getDepartament()
-    this.toastrService.success('El departamento se ha eliminado exitosamente.', 'Éxito');
+      await this.service.deleteDepartament(id)
+      this.getDepartament()
+      this.toastrService.success('El departamento se ha eliminado exitosamente.', 'Éxito');
     } catch (error) {
-    this.toastrService.error('No se puede eliminar el departamento.', 'Error');
+      this.toastrService.error('No se puede eliminar el departamento.', 'Error');
     }
   }
 
   async viewMunicipality(departamentId: any) {
-    await this.router.navigate(['/municipality'], { queryParams: { departamentId: departamentId, showAddMunicipalityCard: false } });
-  }
+    try {
+        const municipalities = await this.service.getMunicipalityByDepartament('municipalities', departamentId);
+
+        if (Array.isArray(municipalities) && municipalities.length > 0) {
+            await this.router.navigate(['/municipality'], { queryParams: { departamentId: departamentId, showAddMunicipalityCard: false } });
+        } else {
+            this.toastrService.info('Este departamento no tiene municipios.', 'Información');
+        }
+    } catch (error) {
+        console.error('Error al obtener los municipios del departamento:', error);
+        this.toastrService.error('Error al obtener los municipios del departamento.', 'Error');
+    }
+}
+
 
   private handleQueryParams() {
     this.route.queryParams.subscribe(params => {
       if (params['showAddDepartmentCard'] === 'false') {
         this.showAddDepartmentCard = false;
       }
-    }).unsubscribe(); 
+    }).unsubscribe();
   }
 }

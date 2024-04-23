@@ -84,6 +84,7 @@ export class CountryComponent implements OnInit {
   }
 
   async updateCountry(country: any) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     this.labelMain = "Actualizar";
     this.country = country;
     this.name = country.name;

@@ -83,6 +83,7 @@ export class DepartamentComponent implements OnInit {
   }
   
   async update(departament: any) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     this.showAddDepartmentCard = true;
     this.labelMain = "Actualizar";
     this.departament = departament;

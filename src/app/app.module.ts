@@ -1,5 +1,3 @@
-// src/app/app.module.ts
-
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,7 +11,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { DataTablesModule } from "angular-datatables";
-
+import { CookieService } from "ngx-cookie-service";
 
 @NgModule({
   declarations: [], 
@@ -29,12 +27,12 @@ import { DataTablesModule } from "angular-datatables";
     NavbarComponent,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    DataTablesModule
+    DataTablesModule, 
   ],
   exports: [
     NavbarComponent,
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [],
 })
 export class AppModule { }

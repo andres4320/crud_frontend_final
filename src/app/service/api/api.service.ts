@@ -1,11 +1,11 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ServiceObject } from '../../models/serviceObject';
 import { Country } from '../../models/country.model';
 import { Departament } from '../../models/departament.model';
 import { Municipality } from '../../models/municipality.model';
 import { enviroment } from '../../../enviroments/enviroment';
-
+import { CookieService } from "ngx-cookie-service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class ApiService {
 
   private endpoint = enviroment.api;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private cookies: CookieService) { }
 
   //Functions of countries
   getCountry(entity: String): Promise<Country[]> {
@@ -106,6 +106,27 @@ export class ApiService {
     return this.httpClient.delete(`${this.endpoint}municipalities/destroy/${id}`).toPromise().then((res) => {
       return <ServiceObject>res;
     })
-  }  
+  }
   
+  //Login
+
+  login(email: string, password: string): Promise<any> {
+    const token = this.getToken();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.httpClient.post<any>(`${this.endpoint}login`, { email, password }, { headers }).toPromise().then((res) => {
+      if (res && res.token) {
+        this.setToken(res.token); // Almacena el token JWT
+      }
+      return res; // Devuelve la respuesta completa
+    });
+  }
+  setToken(token: string) {
+    this.cookies.set("token", token);
+  }
+  getToken() {
+    return this.cookies.get("token");
+  }
 }

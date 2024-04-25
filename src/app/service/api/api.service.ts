@@ -6,6 +6,9 @@ import { Departament } from '../../models/departament.model';
 import { Municipality } from '../../models/municipality.model';
 import { enviroment } from '../../../enviroments/enviroment';
 import { CookieService } from "ngx-cookie-service";
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -110,23 +113,4 @@ export class ApiService {
   
   //Login
 
-  login(email: string, password: string): Promise<any> {
-    const token = this.getToken();
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
-    return this.httpClient.post<any>(`${this.endpoint}login`, { email, password }, { headers }).toPromise().then((res) => {
-      if (res && res.token) {
-        this.setToken(res.token); // Almacena el token JWT
-      }
-      return res; // Devuelve la respuesta completa
-    });
-  }
-  setToken(token: string) {
-    this.cookies.set("token", token);
-  }
-  getToken() {
-    return this.cookies.get("token");
-  }
 }

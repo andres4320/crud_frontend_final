@@ -12,10 +12,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { DataTablesModule } from "angular-datatables";
 import { CookieService } from "ngx-cookie-service";
+import { AppComponent } from "./app.component";
+import { LoginComponent } from "./login/login.component";
+// import { RegisterComponent } from "./register/register.component";
+
 
 @NgModule({
   declarations: [], 
   imports: [
+    AppComponent,
     BrowserModule,
     NgbModule,
     FormsModule,

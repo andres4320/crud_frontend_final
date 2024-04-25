@@ -1,6 +1,6 @@
  import { Component } from "@angular/core";
  import { FormsModule } from '@angular/forms';
- import { ApiService } from '../service/api/api.service';
+ import { LoginService } from '../service/api/login.service';
  import { Router } from "@angular/router";
 
 @Component({
@@ -15,18 +15,14 @@ export class LoginComponent {
   public email: string = "";
   public password: string = "";
 
-  constructor(private loginService: ApiService, public router: Router) {}
+  constructor(private loginService: LoginService, public router: Router) {}
+
   login() {
-    this.loginService.login(this.email, this.password)
-      .then((response: any) => {
-        console.log("Respuesta del servidor:", response);
-        const token = response.token;
-        this.loginService.setToken(token);
-        this.router.navigateByUrl("/country");
-      })
-      .catch((error: any) => {
-        console.error("Error en la solicitud de inicio de sesión:", error);
-      });
+    const user = { email: this.email, password: this.password };
+    this.loginService.login(user).subscribe((data) => {
+      console.log(data);
+    });
   }
+  
 }
 

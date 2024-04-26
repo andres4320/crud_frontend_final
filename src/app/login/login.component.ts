@@ -19,9 +19,14 @@ export class LoginComponent {
 
   login() {
     const user = { email: this.email, password: this.password };
-    this.loginService.login(user).subscribe((data) => {
-      console.log(data);
-    });
+    this.loginService.login(user)
+      .then(data => {
+        this.loginService.setToken(data.token);
+        this.router.navigateByUrl("/");
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
   
 }

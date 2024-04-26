@@ -1,4 +1,4 @@
-* {
+/* * {
     box-sizing: border-box;
   }
   html,
@@ -48,4 +48,21 @@
     border-radius: 1.5rem;
     box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
     cursor: pointer;
+  } */
+
+  .bg {
+    background-image: url("../../assets/img/world-data-principal.jpg");
+    background-size: cover;
+    /* background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center; */
   }
+
+  body{
+    background: #ffe259;
+    background: linear-gradient(to right, #ffa751, #ffe259)
+}

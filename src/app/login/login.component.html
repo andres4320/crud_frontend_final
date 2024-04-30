@@ -7,27 +7,29 @@
     </form>
 </div> -->
 
-<div class="container">
-  <div class="row">
-    <div class="col bg w-75 bg-primary">
+<app-navbar></app-navbar>
+
+<div class="container w-75 mt-5 rounded shadow">
+  <div class="row alingn-items-stretch">
+    <div class="col bg d-none d-lg-block col-md-5 col-lg-5 col-xl-6 rounded">
 
     </div>
-    <div class="col">
+    <div id="cardDark"  class="col p-5 rounded-end">
       <div class="text-end">
-        <img src="../../assets/img/world-data.jpg" width="48px" alt="Base de datos futuristica de la informacion del mundo">
+        <img src="../../assets/img/logo-crud2.png" width="45px" alt="Base de datos futuristica de la informacion del mundo">
       </div>
-      <h2 class="fw-bold text-center py-5">Bienvenidx</h2>
-      <form action="#">
+      <h2 class="fw-bold text-center py-5">Bienvenidx UwU</h2>
+      <form class="custom-form" (ngSubmit)="login()">
         <div class="mb-4">
           <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" name="email">
+          <input type="email" class="form-control" name="email" placeholder="Ingresa tu correo" required [(ngModel)]="email">
         </div>
         <div class="mb-4">
           <label for="password" class="form-label">Password</label>
-          <input type="password" class="form-control" name="password">
+          <input type="password" class="form-control" name="password" placeholder="Ingresa tu contraseña" required [(ngModel)]="password">
         </div>
         <div class="mb-4 form-check">
-          <input type="checkbox" name="connected" class="form-check-input">
+          <input type="checkbox" name="rememberMe" class="form-check-input" [(ngModel)]="rememberMe">
           <label for="connected" class="form-check-label">Remember me</label>
         </div>
         <div class="d-grid">
@@ -39,6 +41,5 @@
       </form>
     </div>
   </div>
-
 </div>
   

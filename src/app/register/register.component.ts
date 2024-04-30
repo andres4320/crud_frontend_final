@@ -1,29 +1,50 @@
 import { Component } from '@angular/core';
-import { LoginService } from '../service/api/login.service';
 import { Router } from "@angular/router";
+import { FormsModule } from '@angular/forms';
+import { RegisterService } from '../service/api/register.service';
+import { NavbarComponent } from '../navbar/navbar.component';
+
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, NavbarComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
+  public name: string = "";
+  public gender: string = "";
+  public profession: string = "";
+  public country: string = "";
+  public department: string = "";
+  public municipality: string = "";
   public email: string = "";
   public password: string = "";
   public confirmPassword: string = "";
 
-  constructor(public loginService: LoginService, public router: Router) {}
+  constructor(private registerService: RegisterService, public router: Router) {}
 
   register() {
-    const user = { email: this.email, password: this.password };
-    this.loginService.register(user).subscribe(data => {
-      this.loginService.setToken(data.token);
-      this.router.navigateByUrl('/');
-    },
-    error => {
-      console.log(error);
-    });
+    const user = {
+      name: this.name,
+      gender: this.gender,
+      profession: this.profession,
+      country: this.country,
+      department: this.department,
+      municipality: this.municipality,
+      email: this.email,
+      password: this.password
+    };
+
+    this.registerService.register(user).subscribe(
+      (response) => {
+        console.log('Registro exitoso:', response);
+        this.router.navigateByUrl('/login');
+      },
+      (error) => {
+        console.error('Error en el registro:', error);
+      }
+    );
   }
 }

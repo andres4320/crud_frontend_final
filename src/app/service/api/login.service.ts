@@ -9,7 +9,7 @@ import { enviroment } from '../../../enviroments/enviroment';
   providedIn: 'root'
 })
 export class LoginService {
-
+  public hideNavbarItems: boolean = false;
   private endpoint = enviroment.api;
   private token: string = "";
 
@@ -32,9 +32,9 @@ export class LoginService {
     
   }
 
-  register(user: any): Observable<any> {
-    return this.httpClient.post(`${this.endpoint}auth/register`, user);
-  }
+  // register(user: any): Observable<any> {
+  //   return this.httpClient.post(`${this.endpoint}auth/register`, user);
+  // }
 
   setToken(token: string) {
     this.token = token;

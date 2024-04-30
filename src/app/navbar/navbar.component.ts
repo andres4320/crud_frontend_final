@@ -1,22 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input  } from '@angular/core';
 import { LoginService } from '../service/api/login.service';
 import { Router } from '@angular/router';
 import { LogoutComponent } from '../logout/logout.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [LogoutComponent],
+  imports: [LogoutComponent, CommonModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
 
 export class NavbarComponent implements OnInit {
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(public loginService: LoginService, private router: Router) {}
 
   public darkTheme = false;
-
   ngOnInit(): void {
     const storedTheme = localStorage.getItem('darkTheme');
     this.darkTheme = storedTheme === 'true';
@@ -39,5 +39,13 @@ export class NavbarComponent implements OnInit {
   logout() {
     const logoutComponent = new LogoutComponent(this.loginService, this.router);
     logoutComponent.logout();
+  }
+
+  showNavbarItems(): boolean {
+    const currentRoute = this.router.url;
+    return currentRoute.includes('country') || currentRoute.includes('departament') || currentRoute.includes('municipality');
+  }
+  isLoginPage(): boolean {
+    return this.router.url.includes('login');
   }
 }

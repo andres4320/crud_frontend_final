@@ -1,27 +1,54 @@
-<div class="register">
-    <form class="custom-form" method="post">
-      <h1>Register</h1>
-      <input
-        type="email"
-        
-        name="email"
-        placeholder="Email"
-        required="required"
-      />
-      <input
-        type="password"
-        
-        name="password"
-        placeholder="Password"
-        required="required"
-      />
-      <input
-        type="password"
-        
-        name="password"
-        placeholder="Repeat the password"
-        required="required"
-      />
-      <button type="submit" (click)="register()">Register</button>
-    </form>
+<app-navbar></app-navbar>
+<div class="container w-75 mt-5 rounded shadow">
+  <div class="row alingn-items-stretch">
+    <div class="col bg d-none d-lg-block col-md-5 col-lg-5 col-xl-6 rounded">
+    </div>
+    <div id="cardDark" class="col p-5 rounded-end">
+      <div class="text-end">
+        <img src="../../assets/img/logo-crud2.png" width="45px" alt="Base de datos futuristica de la informacion del mundo">
+      </div>
+      <h2 class="fw-bold text-center py-5">Registro de Usuario</h2>
+      <form class="custom-form" (ngSubmit)="register()" >
+        <div class="mb-4">
+          <label for="name" class="form-label">Nombre</label>
+          <input type="text" class="form-control" name="name" placeholder="Ingresa tu nombre" required [(ngModel)]="name">
+        </div>
+        <div class="mb-4">
+          <label for="gender" class="form-label">Género</label>
+          <input type="text" class="form-control" name="gender" placeholder="Ingresa tu género" required [(ngModel)]="gender">
+        </div>
+        <div class="mb-4">
+          <label for="profession" class="form-label">Profesión</label>
+          <input type="text" class="form-control" name="profession" placeholder="Ingresa tu profesión" required [(ngModel)]="profession">
+        </div>
+        <div class="mb-4">
+          <label for="country" class="form-label">País</label>
+          <input type="text" class="form-control" name="country" placeholder="Ingresa tu país" required [(ngModel)]="country">
+        </div>
+        <div class="mb-4">
+          <label for="department" class="form-label">Departamento</label>
+          <input type="text" class="form-control" name="department" placeholder="Ingresa tu departamento" required [(ngModel)]="department">
+        </div>
+        <div class="mb-4">
+          <label for="municipality" class="form-label">Municipio</label>
+          <input type="text" class="form-control" name="municipality" placeholder="Ingresa tu municipio" required [(ngModel)]="municipality">
+        </div>
+        <div class="mb-4">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" name="email" placeholder="Ingresa tu correo" required [(ngModel)]="email">
+        </div>
+        <div class="mb-4">
+          <label for="password" class="form-label">Contraseña</label>
+          <input type="password" class="form-control" name="password" placeholder="Ingresa tu contraseña" required [(ngModel)]="password">
+        </div>
+        <div class="mb-4">
+          <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+          <input type="password" class="form-control" name="confirmPassword" placeholder="Confirma tu contraseña" required [(ngModel)]="confirmPassword">
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-outline-primary">Registrarse</button>
+        </div>
+      </form>
+    </div>
   </div>
+</div>

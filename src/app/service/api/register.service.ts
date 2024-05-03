@@ -18,10 +18,8 @@ export class RegisterService {
     return this.httpClient.post(this.endpoint, user).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === 422) {
-          // Manejar los errores de validación
           console.error('Errores de validación:', error.error);
         } else {
-          // Manejar otros errores
           console.error('Error en el registro:', error);
         }
         return throwError(error);

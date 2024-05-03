@@ -23,15 +23,24 @@
         </div>
         <div class="mb-4">
           <label for="country" class="form-label">País</label>
-          <input type="text" class="form-control" name="country" placeholder="Ingresa tu país" required [(ngModel)]="country">
+          <select [(ngModel)]="country_id" (ngModelChange)="selectCountry()" [ngModelOptions]="{standalone: true}" id="inputCountry" class="form-control">
+          <option selected disabled>Elige un País</option>
+          <option [value]="country.id" *ngFor="let country of countryData">{{country.name}}</option>
+          </select>
         </div>
         <div class="mb-4">
           <label for="department" class="form-label">Departamento</label>
-          <input type="text" class="form-control" name="department" placeholder="Ingresa tu departamento" required [(ngModel)]="department">
+          <select [(ngModel)]="departaments_id" (ngModelChange)="selectDepartament()" [ngModelOptions]="{standalone: true}" id="inputDepartament" class="form-control" [disabled]="!country_id">
+            <option value="0" disabled>Elige un Departamento</option>
+            <option [value]="departament.id" *ngFor="let departament of departamentData">{{departament.name}}</option>
+          </select>
         </div>
         <div class="mb-4">
           <label for="municipality" class="form-label">Municipio</label>
-          <input type="text" class="form-control" name="municipality" placeholder="Ingresa tu municipio" required [(ngModel)]="municipality">
+          <select [(ngModel)]="municipality_id" [ngModelOptions]="{standalone: true}" id="inputMunicipality" class="form-control" [disabled]="!departaments_id">
+            <option value="0" disabled>Elige un Municipio</option>
+            <option [value]="municipality.id" *ngFor="let municipality of municipalityData">{{municipality.name}}</option>
+          </select>
         </div>
         <div class="mb-4">
           <label for="email" class="form-label">Email</label>
@@ -42,8 +51,8 @@
           <input type="password" class="form-control" name="password" placeholder="Ingresa tu contraseña" required [(ngModel)]="password">
         </div>
         <div class="mb-4">
-          <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
-          <input type="password" class="form-control" name="confirmPassword" placeholder="Confirma tu contraseña" required [(ngModel)]="confirmPassword">
+          <label for="password_confirmation" class="form-label">Confirmar Contraseña</label>
+          <input type="password" class="form-control" name="password_confirmation" placeholder="Confirma tu contraseña" required [(ngModel)]="password_confirmation">
         </div>
         <div class="d-grid">
           <button type="submit" class="btn btn-outline-primary">Registrarse</button>

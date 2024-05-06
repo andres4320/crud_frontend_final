@@ -8,7 +8,6 @@ import { enviroment } from '../../../enviroments/enviroment';
 import { CookieService } from "ngx-cookie-service";
 import { LoginService } from './login.service';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -20,13 +19,13 @@ export class ApiService {
 
   //Functions of countries
   getCountry(entity: String): Promise<Country[]> {
-  return this.httpClient.get(`${this.endpoint}${entity}`, { headers: this.loginService.getHeaders() })
-    .toPromise()
-    .then((res) => {
-      const service = res as ServiceObject;
-      return service.data as Country[];
-    });
-}
+    return this.httpClient.get(`${this.endpoint}${entity}`, { headers: this.loginService.getHeaders() })
+      .toPromise()
+      .then((res) => {
+        const service = res as ServiceObject;
+        return service.data as Country[];
+      });
+  }
   
   createCountry(entity: String, country: Country): Promise<ServiceObject> {
     return this.httpClient.post(`${this.endpoint}${entity}`, country, { headers: this.loginService.getHeaders() })
@@ -138,6 +137,4 @@ export class ApiService {
       });
   }
   
-  //Login
-
 }

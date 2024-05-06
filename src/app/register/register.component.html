@@ -15,16 +15,22 @@
         </div>
         <div class="mb-4">
           <label for="gender" class="form-label">Género</label>
-          <input type="text" class="form-control" name="gender" placeholder="Ingresa tu género" required [(ngModel)]="gender">
+          <select [(ngModel)]="gender_id" [ngModelOptions]="{standalone: true}" class="form-control" id="inputGender" required>
+            <option value="0" disabled selected>Selecciona un Género</option>
+            <option [value]="gender.id" *ngFor="let gender of genderData">{{ gender.name }}</option>
+          </select>
         </div>
         <div class="mb-4">
           <label for="profession" class="form-label">Profesión</label>
-          <input type="text" class="form-control" name="profession" placeholder="Ingresa tu profesión" required [(ngModel)]="profession">
+          <select [(ngModel)]="profession_id" [ngModelOptions]="{standalone: true}" class="form-control" id="inputProfession" required>
+            <option value="" disabled selected>Selecciona una Profesión</option>
+            <option [value]="profession.id" *ngFor="let profession of professionData">{{ profession.name }}</option>
+          </select>
         </div>
         <div class="mb-4">
           <label for="country" class="form-label">País</label>
           <select [(ngModel)]="country_id" (ngModelChange)="selectCountry()" [ngModelOptions]="{standalone: true}" id="inputCountry" class="form-control">
-          <option selected disabled>Elige un País</option>
+          <option value="" selected disabled>Elige un País</option>
           <option [value]="country.id" *ngFor="let country of countryData">{{country.name}}</option>
           </select>
         </div>

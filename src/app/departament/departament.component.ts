@@ -119,7 +119,7 @@ export class DepartamentComponent implements OnInit {
       this.getDepartament()
       this.toastrService.success('El departamento se ha eliminado exitosamente.', 'Éxito');
     } catch (error) {
-      this.toastrService.error('No se puede eliminar el departamento.', 'Error');
+      this.toastrService.error('No se puede eliminar el departamento. Ya tiene Municipios asociados.', 'Error');
     }
   }
 

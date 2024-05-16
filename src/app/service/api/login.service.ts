@@ -50,14 +50,4 @@ export class LoginService {
     this.token = "";
     this.cookies.delete("token");
   }
-
-  // getUserDetailsByEmail(email: string): Promise<Login[]> {
-  //   return this.httpClient.get(`${this.endpoint}?email=${email}`, { headers: this.getHeaders() })
-  //     .toPromise()
-  //     .then((res) => {
-  //       const service = res as ServiceObject;
-  //       return service.data as Login[];
-  //     });
-  // }
-
 }

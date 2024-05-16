@@ -96,7 +96,7 @@ export class CountryComponent implements OnInit {
       this.getCountry();
       this.toastrService.success('El país se ha eliminado exitosamente.', 'Éxito');
     } catch (error) {
-      this.toastrService.error('No se puede eliminar el país.', 'Error');
+      this.toastrService.error('No se puede eliminar el país. Ya tiene departamentos asociados.', 'Error');
     }
   }
 

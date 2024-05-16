@@ -42,7 +42,6 @@ export class DashboardComponent {
   getUsersByMunicipality() {
     this.apiService.getUsersByMunicipality('users/usersByMunicipality')
       .then(data => {
-        console.log(data);
         const ctx = document.getElementById('chart3') as HTMLCanvasElement;
         const chartData = {
           labels: data.map(item => item.name),
@@ -79,7 +78,6 @@ export class DashboardComponent {
   getUsersByDepartament() {
     this.apiService.getUsersByDepartament('users/usersByDepartament')
       .then(data => {
-        console.log(data);
         const ctx = document.getElementById('chart2') as HTMLCanvasElement;
         const chartData = {
           labels: data.map(item => item.name),
@@ -116,7 +114,6 @@ export class DashboardComponent {
   getUsersByCountry() {
     this.apiService.getUsersByCountry('users/usersByCountry')
       .then(data => {
-        console.log(data);
         const ctx = document.getElementById('chart1') as HTMLCanvasElement;
         const chartData = {
           labels: data.map(item => item.name),
@@ -153,7 +150,6 @@ export class DashboardComponent {
   getUsersByProfession() {
     this.apiService.getUsersByProfession('users/usersByProfession')
       .then(data => {
-        console.log(data);
         const ctx = document.getElementById('chart4') as HTMLCanvasElement;
         const chartData = {
           labels: data.map(item => item.name),
@@ -190,7 +186,6 @@ export class DashboardComponent {
   getUsersByGender() {
     this.apiService.getUsersByGender('users/usersByGender')
       .then(data => {
-        console.log(data);
         const ctx = document.getElementById('chart5') as HTMLCanvasElement;
         const chartData = {
           labels: data.map(item => item.name),

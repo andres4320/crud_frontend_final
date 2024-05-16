@@ -1,4 +1,5 @@
 <app-navbar></app-navbar>
+
 <div class="container w-75 mt-5 rounded shadow">
   <div class="row alingn-items-stretch">
     <div class="col bg d-none d-lg-block col-md-5 col-lg-5 col-xl-6 rounded">
@@ -12,26 +13,29 @@
         <div class="mb-4">
           <label for="name" class="form-label">Nombre</label>
           <input type="text" class="form-control" name="name" placeholder="Ingresa tu nombre" required [(ngModel)]="name">
+          <div *ngIf="!name">
+            <small class="text-danger">Debes llenar este campo.</small>
+          </div>
         </div>
         <div class="mb-4">
           <label for="gender" class="form-label">Género</label>
-          <select [(ngModel)]="gender_id" [ngModelOptions]="{standalone: true}" class="form-control" id="inputGender" required>
+          <select [(ngModel)]="gender_id" [ngModelOptions]="{standalone: true}" class="form-control" id="inputGender" [disabled]="!name">
             <option value="0" disabled selected>Selecciona un Género</option>
             <option [value]="gender.id" *ngFor="let gender of genderData">{{ gender.name }}</option>
           </select>
         </div>
         <div class="mb-4">
           <label for="profession" class="form-label">Profesión</label>
-          <select [(ngModel)]="profession_id" [ngModelOptions]="{standalone: true}" class="form-control" id="inputProfession" required>
-            <option value="" disabled selected>Selecciona una Profesión</option>
+          <select [(ngModel)]="profession_id" [ngModelOptions]="{standalone: true}" class="form-control" id="inputProfession" [disabled]="!gender_id">
+            <option value="0" disabled selected>Selecciona una Profesión</option>
             <option [value]="profession.id" *ngFor="let profession of professionData">{{ profession.name }}</option>
           </select>
         </div>
         <div class="mb-4">
           <label for="country" class="form-label">País</label>
-          <select [(ngModel)]="country_id" (ngModelChange)="selectCountry()" [ngModelOptions]="{standalone: true}" id="inputCountry" class="form-control">
-          <option value="" selected disabled>Elige un País</option>
-          <option [value]="country.id" *ngFor="let country of countryData">{{country.name}}</option>
+          <select [(ngModel)]="country_id" (ngModelChange)="selectCountry()" [ngModelOptions]="{standalone: true}" id="inputCountry" class="form-control" [disabled]="!profession_id">
+            <option value="0" selected disabled>Elige un País</option>
+            <option [value]="country.id" *ngFor="let country of countryData">{{country.name}}</option>
           </select>
         </div>
         <div class="mb-4">
@@ -50,15 +54,24 @@
         </div>
         <div class="mb-4">
           <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" name="email" placeholder="Ingresa tu correo" required [(ngModel)]="email">
+          <input type="email" class="form-control" name="email" [disabled]="!municipality_id" placeholder="Ingresa tu correo" required [(ngModel)]="email">
+          <div *ngIf="!emailValid" class="mb-4">
+            <small class="text-danger">Escriba un correo válido.</small>
+          </div>
         </div>
         <div class="mb-4">
           <label for="password" class="form-label">Contraseña</label>
-          <input type="password" class="form-control" name="password" placeholder="Ingresa tu contraseña" required [(ngModel)]="password">
+          <input type="password" class="form-control" name="password" [disabled]="!email" placeholder="Ingresa tu contraseña" required [(ngModel)]="password">
+          <div *ngIf="!passwordLengthValid" class="mb-4">
+            <small class="text-danger">La contraseña debe tener al menos 8 caracteres.</small>
+          </div>
         </div>
         <div class="mb-4">
           <label for="password_confirmation" class="form-label">Confirmar Contraseña</label>
-          <input type="password" class="form-control" name="password_confirmation" placeholder="Confirma tu contraseña" required [(ngModel)]="password_confirmation">
+          <input type="password" class="form-control" name="password_confirmation" [disabled]="!password" placeholder="Confirma tu contraseña" required [(ngModel)]="password_confirmation">
+          <div *ngIf="!passwordsMatch" class="mb-4">
+            <small class="text-danger">Las contraseñas no coinciden, inténtalo de nuevo</small>
+          </div>
         </div>
         <div class="d-grid">
           <button type="submit" class="btn btn-outline-primary">Registrarse</button>

@@ -3,6 +3,7 @@ import { LoginService } from '../service/api/login.service';
 import { Router } from '@angular/router';
 import { LogoutComponent } from '../logout/logout.component';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +15,7 @@ import { CommonModule } from '@angular/common';
 
 export class NavbarComponent implements OnInit {
 
-  constructor(public loginService: LoginService, private router: Router) {}
+  constructor(public loginService: LoginService, private router: Router, private toastrService: ToastrService) {}
 
   public darkTheme = false;
   ngOnInit(): void {
@@ -37,7 +38,7 @@ export class NavbarComponent implements OnInit {
     }
   }
   logout() {
-    const logoutComponent = new LogoutComponent(this.loginService, this.router);
+    const logoutComponent = new LogoutComponent(this.loginService, this.router, this.toastrService);
     logoutComponent.logout();
   }
 
@@ -45,7 +46,7 @@ export class NavbarComponent implements OnInit {
     const currentRoute = this.router.url;
     return currentRoute.includes('country') || currentRoute.includes('departament') || currentRoute.includes('municipality');
   }
-  isLoginPage(): boolean {
-    return this.router.url.includes('login');
+  noShowItems(): boolean {
+    return this.router.url.includes('login') || this.router.url.includes('register');
   }
 }

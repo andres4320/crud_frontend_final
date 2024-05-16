@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 
-<div id="cardDark" class="card table-responsive m-4">
+<div id="cardDark" class="card table-responsive m-4 shadow">
     <div class="card-header text-center">
         <h2 class="card-title">CRUD de Paises</h2>
     </div>
@@ -8,7 +8,7 @@
 
 <div class="col-6">
     <div class="col">
-        <div id="cardDark" class="card table-responsive m-4">
+        <div id="cardDark" class="card table-responsive m-4 shadow">
             <div class="card-header">
                 <h3 class="card-title text-center">{{labelMain}} País</h3>
             </div>
@@ -16,7 +16,7 @@
                 <form class="row">
                     <label for="formCountry" class="mb-1">Nombre del Pais</label>
                     <div class="col-7">
-                        <input [(ngModel)]="name" type="text" class="form-control m b-2" [ngModelOptions]="{standalone: true}" id="formCountry">
+                        <input [(ngModel)]="name" type="text" class="form-control m b-2" [ngModelOptions]="{standalone: true}" id="formCountry" placeholder="Ingresa el país">
                     </div>
                     <div class="col-5">
                         <button (click)="onButtonClick()" type="button" class="btn btn-primary"> {{labelMain}} País
@@ -28,7 +28,7 @@
     </div>
 </div>
 
-<div class="card table-responsive m-4 text-center">
+<div class="card table-responsive m-4 text-center shadow">
     <div class="table-container">
         <table id="myTable" *ngIf="countryData" datatable [dtOptions]="dtOptions" class="table table-striped table-bordered">
             <thead>

@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild  } from '@angular/core';
 import { Router } from "@angular/router";
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { RegisterService } from '../service/api/register.service';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { ApiService } from '../service/api/api.service';
+import { LoginService } from '../service/api/login.service';
 import { Country } from '../models/country.model';
 import { Departament } from '../models/departament.model';
 import { Municipality } from '../models/municipality.model';
@@ -11,6 +12,7 @@ import { Profession } from '../models/profession.model';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Gender } from '../models/gender.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -20,6 +22,8 @@ import { Gender } from '../models/gender.model';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
+
+  @ViewChild('form') form?: NgForm;
   public name: string = "";
   public gender: string = "";
   public profession: string = "";
@@ -34,13 +38,17 @@ export class RegisterComponent {
   public municipality_id: number = 0;
   public profession_id: number = 0;
   public gender_id: number = 0;
+  public hideNavbarItems: boolean = true;
+  public passwordsMatch: boolean = true;
+  public passwordLengthValid: boolean = true;
+  public emailValid: boolean = true;
   public countryData: Country[] = [];
   public departamentData: Departament[] = [];
   public municipalityData: Municipality[] = [];
   public genderData: Gender[] = [];
   public professionData: Profession[] = [];
 
-  constructor(private registerService: RegisterService, private service: ApiService, public router: Router, private route: ActivatedRoute) {}
+  constructor(private registerService: RegisterService, private service: ApiService, private loginService: LoginService, public router: Router, private route: ActivatedRoute, private toastrService: ToastrService) {}
 
   ngOnInit() {
     this.getGender();
@@ -69,7 +77,24 @@ export class RegisterComponent {
     this.municipalityData = await this.service.getMunicipality('municipalities');
   }
 
+  isValidEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
   register() {
+    if (this.name == "" || this.email == "" || this.password == "" || this.password_confirmation == "") {
+      this.toastrService.error('Debes llenar todos los campos.', 'Error');
+    } else if (this.password.length < 8) {
+      this.passwordLengthValid = false;
+    }
+    else if (this.password !== this.password_confirmation) {
+      this.passwordsMatch = false;
+    } else if (!this.isValidEmail(this.email)) {
+      this.emailValid = false;
+     } else {
+      this.passwordsMatch = true;
+      this.passwordLengthValid = true;
+      this.emailValid = true;
     const user = {
       name: this.name,
       gender_id: this.gender_id,
@@ -81,23 +106,23 @@ export class RegisterComponent {
 
     };
 
-    console.log("gender", this.gender_id)
-    console.log("profesion id", this.profession_id)
-
-
     this.registerService.register(user).subscribe(
       (response) => {
-        console.log('Registro exitoso:', response);
-        console.log("Usuario", user);
+        this.toastrService.success('Usuario creado correctamente', 'Éxito');
         this.router.navigateByUrl('/login');
       },
       (error) => {
-        console.error('Error en el registro:', error);
+        this.toastrService.error('El correo ingresado, esta en uso.', 'Error');
       }
     );
+
+    
+    }
   }
 
   async selectCountry() {
+    this.departaments_id = 0;
+    this.municipality_id = 0;
     this.service.getDepartamentByCountry('departaments', this.country_id)
       .then((filteredDepartments) => {
         this.departamentData = filteredDepartments;
@@ -105,10 +130,19 @@ export class RegisterComponent {
   }
 
   async selectDepartament() {
+    this.municipality_id = 0;
     this.service.getMunicipalityByDepartament('municipalities', this.departaments_id)
       .then((filteredMunicipalities) => {
         this.municipalityData = filteredMunicipalities;
       })
+  }
+
+  toggleNavbarItemsVisibility() {
+    this.loginService.hideNavbarItems = true;
+  }
+
+  isRegisterPage(): boolean {
+    return this.router.url.includes('register');
   }
 
   

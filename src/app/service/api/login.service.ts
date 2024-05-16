@@ -2,6 +2,8 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { CookieService } from "ngx-cookie-service";
 import { enviroment } from '../../../enviroments/enviroment';
+import { ServiceObject } from '../../models/serviceObject';
+import { Login } from '../../models/login.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,16 +25,11 @@ export class LoginService {
   
   getHeaders(): HttpHeaders {
     const token = this.getToken();
-    console.log(Headers)
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
     
   }
-
-  // register(user: any): Observable<any> {
-  //   return this.httpClient.post(`${this.endpoint}auth/register`, user);
-  // }
 
   setToken(token: string) {
     this.token = token;
@@ -44,7 +41,6 @@ export class LoginService {
       return this.token;
     }
     
-    console.log(this.token)
     this.token = this.cookies.get("token");
     return this.token;
     
@@ -54,5 +50,14 @@ export class LoginService {
     this.token = "";
     this.cookies.delete("token");
   }
+
+  // getUserDetailsByEmail(email: string): Promise<Login[]> {
+  //   return this.httpClient.get(`${this.endpoint}?email=${email}`, { headers: this.getHeaders() })
+  //     .toPromise()
+  //     .then((res) => {
+  //       const service = res as ServiceObject;
+  //       return service.data as Login[];
+  //     });
+  // }
 
 }

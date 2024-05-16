@@ -1,11 +1,11 @@
 <app-navbar></app-navbar>
-<div id="cardDark" class="card table-responsive m-4">
+<div id="cardDark" class="card table-responsive m-4 shadow">
     <div class="card-header text-center">
         <h2 class="card-title">CRUD de Departamentos</h2>
     </div>
 </div>
 <div class="col-6" *ngIf="showAddDepartmentCard">
-    <div id="cardDark" class="card table-responsive m-4">
+    <div id="cardDark" class="card table-responsive m-4 shadow">
         <div class="card-header">
             <h3 class="card-title text-center">{{labelMain}} Departamento</h3>
         </div>
@@ -14,14 +14,14 @@
                 <div class="form-group col-10">
                     <label for="inputCountry">Selecciona un país</label>
                     <select [(ngModel)]="country_id" [ngModelOptions]="{standalone: true}" id="inputCountry" class="form-control">
-                        <option selected disabled>Choose a Country...</option>
+                        <option value="0" disabled selected>Elige un país...</option>
                         <option [value]="country.id" *ngFor="let country of countryData">{{country.name}}</option>
                     </select>
                 </div>
                 <div class="form-group col-10">
                     <label for="inputDepartament">Ingresa el departamento</label>
                     <input [(ngModel)]="name" [ngModelOptions]="{standalone: true}" type="text"
-                        class="form-control mb-2" id="inputDepartament">
+                        class="form-control mb-2" id="inputDepartament" [disabled]="!country_id" placeholder="Nombre del departamento">
                 </div>
                 <div class="form-group col-6">
                     <button type="button" (click)="onButtonClick()" class="btn btn-primary">{{labelMain}}
@@ -32,7 +32,7 @@
     </div>
 </div>
 
-<div class="card table-responsive m-4 text-center">
+<div class="card table-responsive m-4 text-center shadow">
     <div class="table-container">
         <table id="myTable" *ngIf="isDataLoaded" datatable [dtOptions]="dtOptions" class="table table-striped table-bordered">
             <thead>

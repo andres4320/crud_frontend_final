@@ -3,6 +3,7 @@
  import { LoginService } from '../service/api/login.service';
  import { NavbarComponent } from '../navbar/navbar.component';
  import { Router } from "@angular/router";
+ import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: "app-login",
@@ -18,7 +19,7 @@ export class LoginComponent {
   public hideNavbarItems: boolean = true;
   public rememberMe: boolean = false;
 
-  constructor(private loginService: LoginService, public router: Router) {}
+  constructor(private loginService: LoginService, public router: Router, private toastrService: ToastrService) {}
 
   ngOnInit() {
     const rememberedUser = localStorage.getItem('rememberedUser');
@@ -41,13 +42,17 @@ export class LoginComponent {
         } else {
           localStorage.removeItem('rememberedUser');
         }
-        this.router.navigateByUrl("/");
+        this.toastrService.info('Has iniciado sesión', '¡Bienvenido!');
+        this.router.navigateByUrl("country");
       })
       .catch(error => {
-        console.error(error);
+        if (error.status === 401) {
+          this.toastrService.error('Usuario o contraseña incorrecta.', 'Error');
+        } else {
+          this.toastrService.error('Ocurrió un error al iniciar sesión.', 'Error');
+        }
       });
-  }
-
+  }  
 
   toggleNavbarItemsVisibility() {
     this.loginService.hideNavbarItems = true;

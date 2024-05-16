@@ -4,6 +4,7 @@ import { ServiceObject } from '../../models/serviceObject';
 import { Country } from '../../models/country.model';
 import { Departament } from '../../models/departament.model';
 import { Municipality } from '../../models/municipality.model';
+import { User } from '../../models/user.model';
 import { enviroment } from '../../../enviroments/enviroment';
 import { CookieService } from "ngx-cookie-service";
 import { LoginService } from './login.service';
@@ -134,6 +135,53 @@ export class ApiService {
       .toPromise()
       .then((res) => {
         return res as ServiceObject;
+      });
+  }
+
+  //Usuarios
+
+  getUsersByMunicipality(entity: string): Promise<User[]> {
+    return this.httpClient.get(`${this.endpoint}${entity}`, { headers: this.loginService.getHeaders() })
+      .toPromise()
+      .then((res) => {
+        const service = res as ServiceObject;
+        return service.data as User[];
+      });
+  }
+
+  getUsersByDepartament(entity: string): Promise<User[]> {
+    return this.httpClient.get(`${this.endpoint}${entity}`, { headers: this.loginService.getHeaders() })
+      .toPromise()
+      .then((res) => {
+        const service = res as ServiceObject;
+        return service.data as User[];
+      });
+  }
+
+  getUsersByCountry(entity: string): Promise<User[]> {
+    return this.httpClient.get(`${this.endpoint}${entity}`, { headers: this.loginService.getHeaders() })
+      .toPromise()
+      .then((res) => {
+        const service = res as ServiceObject;
+        return service.data as User[];
+      });
+  }
+
+  getUsersByProfession(entity: string): Promise<User[]> {
+    return this.httpClient.get(`${this.endpoint}${entity}`, { headers: this.loginService.getHeaders() })
+      .toPromise()
+      .then((res) => {
+        const service = res as ServiceObject;
+        return service.data as User[];
+      });
+  }
+
+  getUsersByGender(entity: string): Promise<User[]> {
+    return this.httpClient.get(`${this.endpoint}${entity}`, { headers: this.loginService.getHeaders() })
+      .toPromise()
+      .then((res) => {
+        const service = res as ServiceObject;
+        return service.data as User[];
       });
   }
   

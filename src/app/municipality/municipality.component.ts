@@ -98,14 +98,12 @@ export class MunicipalityComponent implements OnInit {
     this.labelMain = "Actualizar";
     this.municipality = municipality;
     this.name = municipality.name;
-    this.country_id = municipality.departament.country.id;
     this.departaments_id = municipality.departaments_id;
+    this.country_id = 0;
   }
 
   async updateMunicipalitytWS() {
-    console.log('country: ',this.country_id);
-    console.log('departament: ', this.departaments_id);
-    if (this.country_id === null && this.departaments_id === null) {
+    if (this.country_id === 0 && this.departaments_id === 0) {
       this.toastrService.error('No se puede actualizar el municipio si tanto el país como el municipio están llenos.', 'Error');
       return;
     }
@@ -120,13 +118,13 @@ export class MunicipalityComponent implements OnInit {
         this.getMunicipality();
       });
       this.toastrService.success('El municipio se ha actualizado exitosamente.', 'Éxito');
-      // this.showAddMunicipalityCard = false;
     } catch (error) {
       this.toastrService.error('No se puede actualizar el municipio.', 'Error');
     }
   }
 
   async selectCountry() {
+    this.departaments_id = 0;
     this.service.getDepartamentByCountry('departaments', this.country_id)
       .then((filteredDepartments) => {
         this.departamentData = filteredDepartments;

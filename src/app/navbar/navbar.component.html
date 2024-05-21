@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg">
+<!-- <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
         <a class="navbar-brand" href="dashboard">CRUD</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -13,6 +13,36 @@
                 <a class="nav-item nav-link" (click)="logout()">LogOut</a>
             </div>
             <div class="navbar-nav justify-content-end" [ngClass]="{ 'toggle-right': noShowItems() }">
+                <li class="nav-item">
+                    <label class="switch">
+                        <input type="checkbox" class="input" (change)="toggleDarkTheme()">
+                        <div class="rail">
+                            <span class="circle"></span>
+                        </div>
+                    </label>
+                </li>
+            </div>
+        </div>
+    </div>
+</nav> -->
+
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-wrapper">
+            <a class="navbar-brand" href="dashboard">CRUD</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="/country">Países</a>
+                <a class="nav-item nav-link" href="/departament">Departamentos</a>
+                <a class="nav-item nav-link" href="/municipality">Municipios</a>
+                <a class="nav-item nav-link" (click)="logout()">LogOut</a>
+            </div>
+            <div class="navbar-nav justify-content-end">
                 <li class="nav-item">
                     <label class="switch">
                         <input type="checkbox" class="input" (change)="toggleDarkTheme()">
